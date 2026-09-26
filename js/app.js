@@ -793,8 +793,23 @@ class AshtavadhanamApp {
       nextBtn.setAttribute('aria-disabled', pageNumber < 25 ? 'false' : 'true');
     }
 
-    // Background Canvas
+    // Background Canvas Artwork & Safe Zone Layout
+    const canvasImg = document.getElementById('stage-canvas-bg');
+    if (canvasImg) {
+      canvasImg.src = pageData.canvas;
+      canvasImg.alt = `Page ${pageNumber} Stage Canvas (${pageData.canvas.split('/').pop()})`;
+    }
     this.dialoguesWrapper.style.backgroundImage = `url('${pageData.canvas}')`;
+
+    // Apply artwork safe zone classification based on corner illustrations
+    this.dialoguesWrapper.classList.remove('art-left', 'art-right', 'art-center');
+    if ([1, 5, 11, 12, 15, 18, 19].includes(pageNumber)) {
+      this.dialoguesWrapper.classList.add('art-left');
+    } else if ([2, 9].includes(pageNumber)) {
+      this.dialoguesWrapper.classList.add('art-right');
+    } else {
+      this.dialoguesWrapper.classList.add('art-center');
+    }
 
     // Video button
     if (pageData.video) {
