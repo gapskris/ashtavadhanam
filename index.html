@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="#3c2415">
+  <meta name="description" content="Ashtavadhanam — The Wonder that is Sanskrit. A modern interactive presentation of the historic 1997 Ashtavadhanam performance.">
+  <title>Ashtavadhanam — The Wonder that is Sanskrit</title>
+  
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+  
+  <!-- Modern Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/player.css">
+  <link rel="stylesheet" href="css/tv.css">
+</head>
+<body class="mode-bilingual">
+
+  <!-- ================= AUTHENTIC OPENING EXPERIENCE (1997 DIRECTOR CHOREOGRAPHY) ================= -->
+  <div id="splash-gateway" class="splash-screen">
+    
+    <!-- PHASE A: INITIAL GATEWAY PROMPT (Satisfies Web Audio Autoplay Policy) -->
+    <div id="opening-title-stage" class="opening-stage">
+      <div class="opening-stage-inner">
+        <div class="opening-visual-frame">
+          <img id="opening-landing-preview" src="assets/images/opening/S06.jpg" alt="Aṣṭāvadhānam — The Wonder that is Sanskrit Title Illumination" class="opening-fade-img">
+        </div>
+        <div class="opening-caption-bar">
+          <h2>Aṣṭāvadhānam — The Wonder that is Sanskrit</h2>
+          <p>Historic 1997 CD-ROM Master Production • Sri Aurobindo Society & Pondicherry University</p>
+        </div>
+        <div class="opening-controls-bar">
+          <button id="btn-start-full-experience" class="action-btn primary-btn" style="font-size: 1.05rem; padding: 12px 24px;">
+            <span>▶ Play Authentic Opening Montage & Invocations</span>
+          </button>
+          <button id="btn-enter" class="action-btn" style="font-size: 0.95rem; padding: 12px 20px;">
+            <span>प्रविश्यताम् • Enter Performance Directly ▶</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE B: ACTIVE RUNNING OPENING THEATER -->
+    <div id="opening-video-stage" class="opening-stage hidden">
+      <div class="opening-stage-inner">
+        <!-- Phase 1: Title Sequence Stage (S01 to S06) -->
+        <div id="opening-title-container" class="opening-visual-frame">
+          <img id="opening-title-img" class="title-seq-frame active" src="assets/images/opening/S01.jpg" alt="Title Frame 1">
+          <img id="title-frame-2" class="title-seq-frame" src="assets/images/opening/S02.jpg" alt="Title Frame 2">
+          <img id="title-frame-3" class="title-seq-frame" src="assets/images/opening/S03.jpg" alt="Title Frame 3">
+          <img id="title-frame-4" class="title-seq-frame" src="assets/images/opening/S04.jpg" alt="Title Frame 4">
+          <img id="title-frame-5" class="title-seq-frame" src="assets/images/opening/S05.jpg" alt="Title Frame 5">
+          <img id="title-frame-6" class="title-seq-frame" src="assets/images/opening/S06.jpg" alt="Title Frame 6">
+          <button id="btn-theme-sound-toggle" class="sound-toggle-badge" title="Toggle Music">🎵 Music: ON</button>
+        </div>
+
+        <!-- Phase 2: Cultural Mosaic (03 -> 02 -> 01) & Archival Video Stage -->
+        <div id="opening-mosaic-container" class="mosaic-frame-wrapper hidden">
+          <img id="mosaic-frame-03" class="mosaic-seq-frame active" src="assets/images/opening/03.jpg" alt="Cultural Collage Mosaic Color">
+          <img id="mosaic-frame-02" class="mosaic-seq-frame" src="assets/images/opening/02.jpg" alt="Cultural Collage Mosaic Sepia">
+          <img id="mosaic-frame-01" class="mosaic-seq-frame" src="assets/images/opening/01.jpg" alt="Cultural Collage Mosaic Cutout">
+          <div id="mosaic-video-window" class="opening-video-wrapper">
+            <video id="opening-montage-video" src="assets/video/montage.mp4" playsinline preload="auto" controls></video>
+          </div>
+          <button id="btn-montage-sound-toggle" class="sound-toggle-badge" title="Toggle Sound">🔊 Sound: ON</button>
+          <button id="btn-toggle-theater-mode" class="theater-toggle-badge" title="Toggle Expanded Theater View">🔲 Expand Theater</button>
+        </div>
+
+        <!-- Dynamic Status Bar -->
+        <div class="opening-caption-bar">
+          <h2 id="opening-sequence-status-title">Authentic 1997 Opening Sequence</h2>
+          <p id="opening-sequence-status-desc">Phase 1: Illuminated Title Calligraphy (S01 to S06)</p>
+          <div class="opening-progress-bar">
+            <div id="opening-sequence-progress" class="opening-progress-fill" style="width: 10%;"></div>
+          </div>
+        </div>
+
+        <!-- Navigation Controls: Advance Phase or Skip directly to App -->
+        <div class="opening-controls-bar">
+          <button id="btn-skip-to-montage" class="action-btn">
+            <span>Skip to Montage Video ⏭</span>
+          </button>
+          <button id="btn-skip-montage" class="action-btn primary-btn">
+            <span>प्रविश्यताम् • Enter Performance ▶</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================= MAIN APPLICATION SHELL ================= -->
+  <div id="app-shell" class="app-shell hidden">
+    
+    <!-- TOP HEADER -->
+    <header class="app-header">
+      <div class="header-left">
+        <button id="btn-toggle-menu" class="icon-btn" aria-label="Toggle Menu" title="Menu">☰</button>
+        <div class="brand">
+          <span class="brand-title">अष्टावधानम्</span>
+          <span class="brand-sub">The Wonder that is Sanskrit</span>
+        </div>
+      </div>
+
+      <!-- 3-WAY SANSKRIT/ENGLISH DISPLAY SWITCHER -->
+      <div class="view-switcher" role="group" aria-label="Language and Script View">
+        <button class="view-btn" data-view="devanagari" title="Devanagari script only">देवनागरी</button>
+        <button class="view-btn active" data-view="bilingual" title="Sanskrit and English side-by-side">Bilingual / द्विभाषी</button>
+        <button class="view-btn" data-view="english" title="English translation and IAST macrons">English (IAST)</button>
+      </div>
+
+      <div class="header-right">
+        <button id="btn-search" class="icon-btn" title="Search Verses & Treatises (Ctrl+K or /)" aria-label="Search">🔍</button>
+        <button id="btn-help" class="icon-btn" title="Help & Guide (सहायता)" aria-label="Help">❓</button>
+        <button id="btn-tv-mode" class="icon-btn" title="Toggle Smart TV 10-Foot Mode" aria-label="Smart TV Mode">📺</button>
+        <button id="btn-fullscreen" class="icon-btn" title="Toggle Fullscreen" aria-label="Fullscreen">⛶</button>
+      </div>
+    </header>
+
+    <!-- NAVIGATION DRAWER / NAV BAR -->
+    <nav id="nav-drawer" class="nav-drawer">
+      <div class="nav-drawer-header">
+        <h3>Contents / विषयसूची</h3>
+        <button id="btn-close-nav" class="icon-btn">✕</button>
+      </div>
+      <ul class="nav-links">
+        <li><button class="nav-link active" data-section="performance">🎭 The Performance (25 Rounds)</button></li>
+        <li><button class="nav-link" data-section="avadhanaKala">📜 Avadhana Kala (7 Chapters & Canvases)</button></li>
+        <li><button class="nav-link" data-section="concentration">🧘 Concentration (6 Pages & Canvases)</button></li>
+        <li><button class="nav-link" data-section="glimpses">🎥 Glimpses Video Gallery (15 Videos)</button></li>
+        <li><button class="nav-link" data-section="scholars">👥 The Scholars & Assembly Photo</button></li>
+        <li><button class="nav-link" data-section="institutions">🏛️ Participating Institutions</button></li>
+        <li><button class="nav-link" data-section="society">🕊️ Sri Aurobindo Society</button></li>
+        <li><button class="nav-link" data-section="acknowledgments">📜 Credits & Acknowledgments</button></li>
+        <li><button class="nav-link" data-section="help">❓ Guide & Help (सहायता)</button></li>
+        <li><button class="nav-link" id="btn-nav-search">🔍 Sanskrit Search (अन्वेषणम्)</button></li>
+        <li><button class="nav-link" data-section="gallery">🖼️ Historical Artwork Gallery</button></li>
+        <li><button class="nav-link" id="btn-replay-opening">🎞️ Replay Opening Title & Video</button></li>
+        <li><button class="nav-link" id="btn-exit" style="color: #ef4444;">🚪 Exit / निर्गमनम् (Return to Gateway)</button></li>
+      </ul>
+    </nav>
+
+    <!-- MAIN STAGE -->
+    <main id="main-content" class="main-content">
+
+      <!-- SECTION 1: THE PERFORMANCE (CORE PLAYER) -->
+      <section id="section-performance" class="app-section active">
+        
+        <!-- PAGE SELECTOR BAR -->
+        <div class="round-bar-container" role="navigation" aria-label="Performance Page Navigator">
+          <button class="round-nav-arrow" id="btn-round-prev" title="Previous Page" aria-label="Previous Page">◀</button>
+          <div class="round-pills" id="round-pills" role="tablist" aria-label="Performance Pages">
+            <!-- Dynamically populated Page 1 to Page 25 -->
+          </div>
+          <button class="round-nav-arrow" id="btn-round-next" title="Next Page" aria-label="Next Page">▶</button>
+        </div>
+
+        <!-- STAGE CANVAS & DIALOGUE CONTAINER -->
+        <div class="stage-container" id="stage-container">
+          
+          <div class="stage-header-info">
+            <div class="stage-meta">
+              <h2 id="current-round-title">Page 1 of 25</h2>
+              <span id="current-round-meta" class="stage-submeta">Invocation & Introduction</span>
+            </div>
+            <div class="stage-actions">
+              <button id="btn-play-all-round" class="action-btn play-round-btn" title="Play all audio recitations in this page">
+                <span>▶</span> Play All in Page
+              </button>
+              <button id="btn-watch-video" class="action-btn video-btn hidden">
+                <span>🎥</span> Watch Video Demonstration
+              </button>
+            </div>
+          </div>
+
+          <!-- DIALOGUE FLOW CARDS -->
+          <div class="dialogues-wrapper" id="dialogues-wrapper">
+            <!-- Dynamically generated dialogue lines for active page -->
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: AVADHANA KALA TREATISE (7 CHAPTERS & 7 HISTORIC CANVASES) -->
+      <section id="section-avadhanaKala" class="app-section">
+        <div class="treatise-reader-container">
+          <div class="treatise-header-row">
+            <h2 class="treatise-title">Avadhānakalā — The Art of Concentration</h2>
+            <div class="treatise-chapter-nav" id="avadhana-pills"></div>
+          </div>
+          <div class="treatise-body-layout">
+            <div class="treatise-canvas-card" id="avadhana-canvas-card">
+              <img id="avadhana-canvas-img" src="assets/images/avdhankala01.jpg" alt="Avadhana Kala Historic Canvas" loading="lazy">
+              <span class="canvas-caption" id="avadhana-canvas-caption">Page 1 of 7 Canvas</span>
+            </div>
+            <div class="treatise-text-panel">
+              <h3 id="avadhana-chapter-title" class="chapter-heading">Chapter 1</h3>
+              <div class="treatise-content" id="content-avadhanaKala"></div>
+              <div class="treatise-footer-nav">
+                <button id="btn-avadhana-prev" class="action-btn">◀ Previous Chapter</button>
+                <span id="avadhana-page-indicator" class="page-indicator">Chapter 1 of 7</span>
+                <button id="btn-avadhana-next" class="action-btn">Next Chapter ▶</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: CONCENTRATION TREATISE (6 PAGES & 6 HISTORIC CANVASES) -->
+      <section id="section-concentration" class="app-section">
+        <div class="treatise-reader-container">
+          <div class="treatise-header-row">
+            <h2 class="treatise-title">Concentration: Its Importance & Value</h2>
+            <div class="treatise-chapter-nav" id="concentration-pills"></div>
+          </div>
+          <div class="treatise-body-layout">
+            <div class="treatise-canvas-card" id="concentration-canvas-card">
+              <img id="concentration-canvas-img" src="assets/images/ashtava01.jpg" alt="Concentration Historic Canvas" loading="lazy">
+              <span class="canvas-caption" id="concentration-canvas-caption">Page 1 of 6 Canvas</span>
+            </div>
+            <div class="treatise-text-panel">
+              <h3 id="concentration-chapter-title" class="chapter-heading">Page 1</h3>
+              <div class="treatise-content" id="content-concentration"></div>
+              <div class="treatise-footer-nav">
+                <button id="btn-concentration-prev" class="action-btn">◀ Previous Page</button>
+                <span id="concentration-page-indicator" class="page-indicator">Page 1 of 6</span>
+                <button id="btn-concentration-next" class="action-btn">Next Page ▶</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: GLIMPSES (VIDEO THEATER) -->
+      <section id="section-glimpses" class="app-section">
+        <div class="glimpses-grid" id="glimpses-grid">
+          <!-- Populated from data.js -->
+        </div>
+      </section>
+
+      <!-- SECTION 5: SCHOLARS -->
+      <section id="section-scholars" class="app-section">
+        <div class="treatise-card">
+          <h2 class="treatise-title">The Performance & Participating Scholars</h2>
+          <div class="treatise-hero-img">
+            <img src="assets/images/performance.jpg" alt="Performance Scholars and Pandits" loading="lazy">
+          </div>
+          <div class="treatise-content" id="content-scholars"></div>
+        </div>
+      </section>
+
+      <!-- SECTION 6: INSTITUTIONS -->
+      <section id="section-institutions" class="app-section">
+        <div class="treatise-card">
+          <h2 class="treatise-title">Participating Sanskrit Institutions</h2>
+          <div class="treatise-hero-img">
+            <img src="assets/images/institution/institution .jpg" alt="Institutions" loading="lazy">
+          </div>
+          <div class="treatise-content" id="content-institutions"></div>
+        </div>
+      </section>
+
+      <!-- SECTION 7: SRI AUROBINDO SOCIETY -->
+      <section id="section-society" class="app-section">
+        <div class="treatise-card">
+          <h2 class="treatise-title">Sri Aurobindo Society</h2>
+          <div class="treatise-hero-img">
+            <img src="assets/images/sas/sas.jpg" alt="Sri Aurobindo Society" loading="lazy">
+          </div>
+          <div class="treatise-content" id="content-society"></div>
+        </div>
+      </section>
+
+      <!-- SECTION 8: HISTORICAL ARTWORK GALLERY -->
+      <section id="section-gallery" class="app-section">
+        <div class="treatise-card">
+          <h2 class="treatise-title">Historical Artwork & Master Image Archives</h2>
+          <p class="gallery-subtitle">Original 1997 Director graphics, opening title animation frames, illuminated borders, and acknowledgments preserved in master resolution.</p>
+          <div class="historical-gallery-grid" id="historical-gallery-grid"></div>
+        </div>
+      </section>
+
+      <!-- SECTION 9: ACKNOWLEDGMENTS & CREDITS (acknowledge.dxr / acknowledge.cxt) -->
+      <section id="section-acknowledgments" class="app-section">
+        <div class="treatise-card acknowledgments-card">
+          <div class="acknowledgments-hero">
+            <img src="assets/images/acknowledge/back.jpg" alt="Acknowledgments Illuminated Frame" class="acknowledgments-backdrop-img">
+            <div class="acknowledgments-hero-overlay">
+              <h2 class="treatise-title">साहाय्यम् तथा कृतज्ञता-प्रकाशनम्</h2>
+              <p class="acknowledgments-subtitle">Acknowledgments & Production Credits • The Wonder that is Sanskrit (1997)</p>
+            </div>
+          </div>
+          <div class="acknowledgments-content" id="content-acknowledgments"></div>
+        </div>
+      </section>
+
+      <!-- SECTION 10: USER GUIDE & HELP (help.dxr / help.cxt / help.swf) -->
+      <section id="section-help" class="app-section">
+        <div class="treatise-card help-card">
+          <div class="help-header">
+            <h2 class="treatise-title">सहायता तथा उपयोग-मार्गदर्शिका</h2>
+            <p class="help-subtitle">Multimedia Experience Guide & Archival CD-ROM Reference</p>
+          </div>
+          <div class="help-content" id="content-help"></div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FIXED BOTTOM MASTER MEDIA PLAYER BAR -->
+    <footer class="app-player-bar" id="player-bar">
+      <div class="player-left">
+        <div class="now-playing-badge" id="player-badge">Audio Clip</div>
+        <div class="now-playing-details">
+          <div class="now-playing-title" id="player-clip-title">Select a recitation to begin</div>
+          <div class="now-playing-speaker" id="player-speaker">Ashtavadhanam 1997</div>
+        </div>
+      </div>
+
+      <div class="player-center">
+        <div class="player-controls">
+          <button id="btn-prev-clip" class="ctrl-btn" title="Previous Clip (Left Arrow)">⏮</button>
+          <button id="btn-play-pause" class="ctrl-btn play-main-btn" title="Play/Pause (Spacebar)">▶</button>
+          <button id="btn-next-clip" class="ctrl-btn" title="Next Clip (Right Arrow)">⏭</button>
+          <button id="btn-loop-mode" class="ctrl-btn loop-btn active" title="Auto-advance through clips">🔁</button>
+        </div>
+        
+        <div class="progress-bar-wrapper">
+          <span class="time-label" id="current-time">0:00</span>
+          <div class="progress-bar" id="progress-bar-container">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <span class="time-label" id="total-time">0:00</span>
+        </div>
+      </div>
+
+      <div class="player-right">
+        <span class="codec-indicator" id="codec-indicator">AAC 192k</span>
+        <button id="btn-mute" class="icon-btn" title="Mute/Unmute">🔊</button>
+      </div>
+    </footer>
+
+    <!-- VIDEO MODAL DIALOG -->
+    <div id="video-modal" class="video-modal hidden">
+      <div class="video-modal-backdrop" id="video-modal-close"></div>
+      <div class="video-modal-card">
+        <div class="video-modal-header">
+          <h3 id="video-modal-title">Performance Demonstration</h3>
+          <button class="modal-close-btn" id="btn-modal-close-x">✕</button>
+        </div>
+        <div class="video-modal-body">
+          <video id="modal-video-player" controls playsinline preload="auto">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEARCH MODAL DIALOG (Phase 10: Sanskrit & Devanagari Search) -->
+    <div id="search-modal" class="search-modal hidden">
+      <div class="search-modal-backdrop" id="search-modal-backdrop"></div>
+      <div class="search-modal-card">
+        <div class="search-modal-header">
+          <div class="search-input-wrapper">
+            <span class="search-icon-prefix">🔍</span>
+            <input type="text" id="search-input" class="search-input" placeholder="Search Sanskrit verses, English translations, topics, or scholars... (e.g. अमर्त्यात्मा, Samasya, Kovvur)" autocomplete="off">
+            <button id="btn-close-search" class="search-close-btn" title="Close Search (Esc)">✕</button>
+          </div>
+          <div class="search-filters-bar">
+            <button class="search-filter-chip active" data-filter="all">All</button>
+            <button class="search-filter-chip" data-filter="rounds">Rounds 1–25</button>
+            <button class="search-filter-chip" data-filter="treatises">Treatises</button>
+            <button class="search-filter-chip" data-filter="scholars">Scholars & Credits</button>
+          </div>
+        </div>
+        <div class="search-modal-body">
+          <div id="search-results" class="search-results-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXIT CONFIRMATION MODAL (exit.dxr equivalent) -->
+    <div id="exit-modal" class="exit-modal hidden">
+      <div class="exit-modal-backdrop" id="exit-modal-backdrop"></div>
+      <div class="exit-modal-card">
+        <div class="exit-modal-header">
+          <h3>निर्गमनम् • Exit Aṣṭāvadhānam</h3>
+          <button class="modal-close-btn" id="btn-close-exit">✕</button>
+        </div>
+        <div class="exit-modal-body">
+          <p class="exit-modal-text">Are you sure you want to exit the application?</p>
+          <p class="exit-modal-subtext">किं भवान् अष्टावधान-कार्यक्रमात् निर्गन्तुम् इच्छति?</p>
+          <div class="exit-modal-actions">
+            <button id="btn-confirm-exit" class="action-btn primary-btn" style="background: #dc2626; border-color: #dc2626;">
+              🚪 Exit to Gateway
+            </button>
+            <button id="btn-cancel-exit" class="action-btn">
+              ◀ Return to Performance
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Audio Elements -->
+  <audio id="opening-theme-audio" preload="auto">
+    <source src="assets/audio/special/ashmain_theme.m4a" type="audio/mp4">
+    <source src="assets/audio/special/ashmain_theme.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="master-audio" preload="auto"></audio>
+
+  <!-- Application Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/tv-remote.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

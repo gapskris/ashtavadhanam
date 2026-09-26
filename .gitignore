@@ -1,0 +1,20 @@
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Node / JS environments
+node_modules/
+npm-debug.log*
+
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+
+# IDE & Editor folders
+.vscode/
+.idea/
+*.swp

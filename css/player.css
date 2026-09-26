@@ -1,0 +1,348 @@
+/* Ashtavadhanam Modern — Player & Dialogue Styles */
+
+/* ================= DIALOGUES & VERSES FLOW ================= */
+.dialogues-wrapper {
+  padding: clamp(14px, 3vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  min-height: 480px;
+}
+
+.dialogues-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 14, 11, 0.42);
+  backdrop-filter: blur(1px);
+  z-index: 1;
+}
+
+.dialogue-card {
+  position: relative;
+  z-index: 2;
+  background: rgba(26, 20, 15, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(218, 165, 32, 0.22);
+  border-radius: var(--radius-md);
+  padding: clamp(14px, 2.5vw, 22px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+
+.dialogue-card.active {
+  border-color: var(--accent-gold);
+  background: rgba(45, 34, 25, 0.98);
+  box-shadow: 0 0 25px var(--accent-glow), 0 8px 24px rgba(0,0,0,0.6);
+  transform: scale(1.008);
+}
+
+.dialogue-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.speaker-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: clamp(0.75rem, 1.8vw, 0.84rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Custom Speaker Colors */
+.speaker-avadhani { background: rgba(229, 169, 60, 0.2); color: #ffca66; border: 1px solid #c28d32; }
+.speaker-nishidha { background: rgba(217, 94, 38, 0.2); color: #ff8e54; border: 1px solid #d95e26; }
+.speaker-samasya { background: rgba(155, 89, 182, 0.2); color: #d2a4e8; border: 1px solid #9b59b6; }
+.speaker-dattapadi { background: rgba(46, 204, 113, 0.2); color: #7ceda9; border: 1px solid #2ecc71; }
+.speaker-aprastuta { background: rgba(241, 196, 15, 0.2); color: #ffeb85; border: 1px solid #f1c40f; }
+.speaker-vyastakshari { background: rgba(52, 152, 219, 0.2); color: #85c8f7; border: 1px solid #3498db; }
+.speaker-bell { background: rgba(231, 76, 60, 0.2); color: #ff8a7d; border: 1px solid #e74c3c; }
+.speaker-president { background: rgba(243, 156, 18, 0.25); color: #ffd678; border: 1px solid #f39c12; }
+.speaker-default { background: rgba(255, 255, 255, 0.1); color: #eaeaea; border: 1px solid #777; }
+
+.dialogue-audio-btn {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 50%;
+  background: rgba(229, 169, 60, 0.15);
+  border: 1px solid var(--border-gold);
+  color: var(--accent-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.dialogue-audio-btn:hover {
+  background: var(--accent-gold);
+  color: #120e0b;
+}
+
+.dialogue-audio-btn.playing {
+  background: var(--accent-gold);
+  color: #120e0b;
+  animation: pulse-ring 1.5s infinite;
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(229, 169, 60, 0.7); }
+  70% { box-shadow: 0 0 0 12px rgba(229, 169, 60, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(229, 169, 60, 0); }
+}
+
+/* ================= 3-WAY SCRIPT VISIBILITY ================= */
+.text-sanskrit {
+  font-family: var(--font-devanagari);
+  font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+  line-height: 1.85;
+  color: #ffde99;
+  margin-bottom: 8px;
+}
+
+.text-english {
+  font-family: var(--font-serif);
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* Mode toggles */
+body.mode-devanagari .text-english {
+  display: none !important;
+}
+
+body.mode-english .text-sanskrit {
+  display: none !important;
+}
+
+body.mode-bilingual .text-sanskrit {
+  display: block;
+}
+
+body.mode-bilingual .text-english {
+  display: block;
+  border-top: 1px dashed rgba(229, 169, 60, 0.2);
+  padding-top: 10px;
+  margin-top: 8px;
+}
+
+/* ================= FIXED BOTTOM PLAYER BAR ================= */
+.app-player-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  min-height: var(--player-height);
+  background: rgba(18, 14, 11, 0.98);
+  border-top: 1px solid var(--border-gold);
+  z-index: 1000;
+  display: grid;
+  grid-template-columns: 280px 1fr 200px;
+  align-items: center;
+  padding: 10px 24px;
+  box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(16px);
+  gap: 16px;
+}
+
+.player-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.now-playing-badge {
+  background: rgba(229, 169, 60, 0.2);
+  border: 1px solid var(--border-gold);
+  color: var(--accent-gold);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.now-playing-details {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.now-playing-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.now-playing-speaker {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.player-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ctrl-btn {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  transition: var(--transition);
+  border-radius: var(--radius-sm);
+}
+
+.ctrl-btn:hover {
+  color: var(--accent-gold);
+}
+
+.play-main-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  color: #120e0b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  box-shadow: 0 2px 10px rgba(229, 169, 60, 0.4);
+}
+
+.play-main-btn:hover {
+  background: var(--accent-gold-hover);
+  transform: scale(1.05);
+}
+
+.loop-btn.active {
+  color: var(--accent-gold);
+}
+
+.progress-bar-wrapper {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.time-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  min-width: 34px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-gold) 0%, var(--accent-saffron) 100%);
+  border-radius: 4px;
+  transition: width 0.05s linear;
+}
+
+.player-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+}
+
+.codec-indicator {
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: #2ecc71;
+  border: 1px solid rgba(46, 204, 113, 0.3);
+  font-weight: 600;
+}
+
+/* ================= RESPONSIVE ADJUSTMENTS ================= */
+/* Mobile Devices (< 768px) */
+@media (max-width: 768px) {
+  :root {
+    --player-height: 110px;
+  }
+  
+  .app-player-bar {
+    grid-template-columns: 1fr;
+    padding: 8px 12px;
+    gap: 6px;
+  }
+  
+  /* On mobile: keep now-playing info visible on top of player controls */
+  .player-left {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .now-playing-details {
+    align-items: center;
+  }
+  
+  .now-playing-badge {
+    display: none;
+  }
+  
+  .player-right {
+    display: none;
+  }
+  
+  .player-controls {
+    gap: 12px;
+  }
+  
+  .progress-bar-wrapper {
+    max-width: 100%;
+  }
+}
