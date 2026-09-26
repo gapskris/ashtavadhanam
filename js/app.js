@@ -799,7 +799,7 @@ class AshtavadhanamApp {
       canvasImg.src = pageData.canvas;
       canvasImg.alt = `Page ${pageNumber} Stage Canvas (${pageData.canvas.split('/').pop()})`;
     }
-    this.dialoguesWrapper.style.backgroundImage = `url('${pageData.canvas}')`;
+    this.dialoguesWrapper.style.backgroundImage = 'none';
 
     // Apply artwork safe zone classification based on corner illustrations
     this.dialoguesWrapper.classList.remove('art-left', 'art-right', 'art-center');
@@ -887,14 +887,18 @@ class AshtavadhanamApp {
         });
       }
 
+      // Strip redundant leading speaker prefix since speaker badge is already rendered above
+      const cleanSan = san.replace(/^(अवधानी|निषिद्धाक्षरी|नष्िाधाक्षरी|अप्रस्तुतप्रसङ्गः?|अप्रस्तुतप्रसङ्ग|समस्या|दत्तपदी|व्यस्ताक्षरी|व्याख्याकारः?|सभापतिः?|घण्टा):\s*/i, '').trim();
+      const cleanEng = eng.replace(/^(Avadhānī|Niṣiddhākṣarī|Aprastutaprasaṅga|Aprastutaprasanga|Samasyā|Dattapadī|Vyastākṣarī|Commentator|President|The Bell|Ghaṇṭā):\s*/i, '').trim();
+
       card.innerHTML = `
         <div class="dialogue-header">
           <span class="speaker-badge ${speakerInfo.cssClass}">${speakerInfo.name}</span>
           ${audioButtonHtml}
         </div>
         <div class="dialogue-body">
-          <div class="text-sanskrit">${this.formatText(san)}</div>
-          <div class="text-english">${this.formatText(eng)}</div>
+          <div class="text-sanskrit">${this.formatText(cleanSan)}</div>
+          <div class="text-english">${this.formatText(cleanEng)}</div>
         </div>
       `;
 
