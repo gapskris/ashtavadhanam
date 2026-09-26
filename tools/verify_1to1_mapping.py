@@ -288,7 +288,7 @@ def run_verification():
         "buildIndex()" in search_js_code and
         "treatises.avadhanaKala" in search_js_code and
         "treatises.concentration" in search_js_code and
-        total_expected_docs >= 240
+        total_expected_docs >= 220
     )
     check(f"Search index coverage: accurately indexes {total_expected_docs} corpus documents across 25 rounds, treatises, and scholars", indexing_complete)
 

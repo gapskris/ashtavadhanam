@@ -536,7 +536,27 @@ button {
 }
 
 .treatise-content p {
-  text-indent: 1.2em;
+  text-indent: 0;
+  margin: 0;
+  line-height: 1.8;
+}
+
+.treatise-content p + p {
+  margin-top: 4px;
+}
+
+#content-institutions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px 32px;
+}
+
+#content-institutions p {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  line-height: 2;
 }
 
 /* GLIMPSES GRID */
