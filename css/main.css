@@ -61,7 +61,7 @@ button {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: radial-gradient(circle at center, #2e1d13 0%, #0d0907 100%);
+  background: radial-gradient(circle at 50% 38%, #F7DC6F 0%, #E59866 22%, #B77729 45%, #6E400B 75%, #3E2105 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -752,7 +752,7 @@ button {
   position: fixed;
   inset: 0;
   z-index: 3000;
-  background: #000;
+  background: radial-gradient(circle at 50% 38%, #F7DC6F 0%, #E59866 22%, #B77729 45%, #6E400B 75%, #3E2105 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -777,6 +777,33 @@ button {
   justify-content: center;
 }
 
+/* Sacred Inscription Crest */
+.opening-spiritual-crest {
+  text-align: center;
+  margin-bottom: 18px;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.crest-mantra {
+  font-family: 'Noto Serif Devanagari', 'Sanskrit Text', var(--font-serif);
+  color: #FFF2A8;
+  font-size: clamp(1.2rem, 3.2vw, 1.7rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65), 0 0 25px rgba(255, 230, 100, 0.45);
+}
+
+.crest-subtext {
+  color: #FFF8D6;
+  font-family: var(--font-serif);
+  font-size: clamp(0.72rem, 1.8vw, 0.85rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 4px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.65);
+}
+
 .opening-visual-frame {
   position: relative;
   width: 100%;
@@ -784,13 +811,27 @@ button {
   aspect-ratio: 4 / 3;
   border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: 0 0 50px rgba(212, 163, 89, 0.25), 0 20px 40px rgba(0, 0, 0, 0.9);
-  border: 1px solid var(--border-gold);
+  box-shadow: 0 0 70px rgba(255, 220, 100, 0.75), 0 0 140px rgba(245, 175, 40, 0.45), 0 30px 60px rgba(0, 0, 0, 0.75);
+  border: 2px solid #FFF2A8;
   background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
+.frame-corner {
+  position: absolute;
+  color: #FFE875;
+  font-size: 14px;
+  z-index: 10;
+  pointer-events: none;
+  line-height: 1;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+}
+.frame-corner.top-left { top: 10px; left: 10px; }
+.frame-corner.top-right { top: 10px; right: 10px; }
+.frame-corner.bottom-left { bottom: 10px; left: 10px; }
+.frame-corner.bottom-right { bottom: 10px; right: 10px; }
 
 .opening-fade-img {
   width: 100%;
@@ -806,22 +847,29 @@ button {
 
 .opening-caption-bar h2 {
   font-family: var(--font-serif);
-  color: var(--accent-gold);
-  font-size: clamp(1.2rem, 3.5vw, 1.8rem);
-  letter-spacing: 0.05em;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFF2B2 30%, #F7DC6F 60%, #D4AC0D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+  font-size: clamp(1.25rem, 3.5vw, 1.95rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
   margin-bottom: 6px;
 }
 
 .opening-caption-bar p {
-  color: var(--text-secondary);
+  color: #FFF3CD;
+  font-family: var(--font-serif);
   font-size: 0.95rem;
+  font-weight: 500;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
 }
 
 .opening-progress-bar {
   width: 100%;
   max-width: 320px;
   height: 4px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.25);
   border-radius: 2px;
   margin: 16px auto 0;
   overflow: hidden;
@@ -830,7 +878,8 @@ button {
 .opening-progress-fill {
   height: 100%;
   width: 16.6%;
-  background: var(--accent-gold);
+  background: #FFF2A8;
+  box-shadow: 0 0 10px #FFF2A8;
   transition: width 0.3s ease;
 }
 
@@ -840,6 +889,41 @@ button {
   gap: 14px;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.opening-controls-bar .primary-btn {
+  background: linear-gradient(135deg, #FFF0A5 0%, #F5B041 50%, #D4AC0D 100%);
+  box-shadow: 0 6px 20px rgba(245, 176, 65, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  color: #3E1F00;
+  font-weight: 800;
+  border: none;
+  padding: 14px 28px;
+  border-radius: var(--radius-sm);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.opening-controls-bar .primary-btn:hover {
+  box-shadow: 0 8px 30px rgba(245, 176, 65, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px) scale(1.02);
+  color: #241100;
+}
+
+.opening-controls-bar .secondary-btn {
+  background: rgba(35, 18, 5, 0.65);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid #F5CBA7;
+  color: #FFF3CD;
+  font-weight: 700;
+  padding: 14px 24px;
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+}
+
+.opening-controls-bar .secondary-btn:hover {
+  background: rgba(80, 40, 10, 0.8);
+  border-color: #FFF0A5;
+  color: #FFFFFF;
+  transform: translateY(-2px);
 }
 
 /* OPENING VIDEO STAGE (MOSAIC) */
