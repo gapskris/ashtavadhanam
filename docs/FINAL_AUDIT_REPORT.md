@@ -1,5 +1,5 @@
 # Forensic Implementation Audit Report
-**Project:** Aṣṭāvadhānam (1997 CD-ROM → 2026 Modern Web Application)  
+**Project:** Ashtavadhanam (1997 CD-ROM → 2026 Modern Web Application)  
 **Audit Type:** Independent, Deep-Inspection Forensic Codebase & Asset Verification (Read-Only)  
 **Baseline References:** `Master_Plan.docx`, `MODERNIZATION_PLAN.md`, `AGENTS.md`, `AUDIT_REPORT.md`, `Ashtavadhanam_master/`, `Ashtavadhanam_modern/`  
 **Execution Timestamp:** September 2026  
@@ -8,7 +8,7 @@
 
 ## A. Executive Summary
 
-This forensic audit evaluated the complete modern implementation of the 1997 historic multimedia CD-ROM **"Aṣṭāvadhānam — The Wonder that is Sanskrit"** against its original source material, preservation doctrines, and architectural plans.
+This forensic audit evaluated the complete modern implementation of the 1997 historic multimedia CD-ROM **"Ashtavadhanam — The Wonder that is Sanskrit"** against its original source material, preservation doctrines, and architectural plans.
 
 ### Overall Assessment
 - **Historical Content & Media Parity**: **100% FORENSIC PASS**. Every single byte of the original multimedia content (173 audio recitations, 15 videos, 53 master visual graphics, 25 performance rounds, 2 classical educational treatises, 10 assembly scholars, and archival documentation) has been converted, verified, and mapped into the modern application without legacy runtime dependencies.

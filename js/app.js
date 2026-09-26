@@ -379,7 +379,7 @@ class AshtavadhanamApp {
         this.btnSkipToMontage.style.display = 'inline-flex';
       }
 
-      if (this.statusTitle) this.statusTitle.textContent = "Aṣṭāvadhānam — The Wonder that is Sanskrit";
+      if (this.statusTitle) this.statusTitle.textContent = "Ashtavadhanam — The Wonder that is Sanskrit";
       if (this.statusDesc) this.statusDesc.textContent = "Phase 1: Illuminated Title Calligraphy (S01 to S06)";
       if (this.progressFill) this.progressFill.style.width = "5%";
 

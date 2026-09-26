@@ -200,10 +200,22 @@ button {
 
 .brand-title {
   font-family: var(--font-devanagari);
-  font-size: clamp(1.1rem, 3vw, 1.35rem);
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
   font-weight: 700;
   color: var(--accent-gold);
   line-height: 1.1;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.brand-title-en {
+  font-family: var(--font-sans);
+  font-size: 0.9em;
+  font-weight: 600;
+  color: #ffd875;
+  letter-spacing: 0.02em;
 }
 
 .brand-sub {

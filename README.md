@@ -1,11 +1,11 @@
-# Aṣṭāvadhānam — The Wonder that is Sanskrit (अष्टावधानम्)
+# Ashtavadhanam — The Wonder that is Sanskrit (अष्टावधानम्)
 
 [![Verification Audit](https://img.shields.io/badge/Forensic%20Audit-70%2F70%20PASS%20(100%25)-success?style=for-the-badge&logo=checkmarx)](docs/FINAL_AUDIT_REPORT.md)
 [![Zero Runtime Dependencies](https://img.shields.io/badge/Dependencies-Zero%20(Vanilla%20ES6%2B)-blue?style=for-the-badge)](docs/MIGRATION_AND_TECH_STACK.md)
 [![PWA Ready](https://img.shields.io/badge/PWA-Offline%20Ready-purple?style=for-the-badge&logo=pwa)](manifest.json)
 [![Platform](https://img.shields.io/badge/Platform-Web%20%7C%20Mobile%20%7C%20Smart%20TV-gold?style=for-the-badge)](docs/ACCESS_GUIDE.md)
 
-A modern, universal Progressive Web Application (PWA) preserving and presenting the historic Sanskrit **Aṣṭāvadhānam** performance held on **20th January 1997** at Pondicherry, organized by **Sri Aurobindo Society** and the **Department of Sanskrit, Pondicherry University**.
+A modern, universal Progressive Web Application (PWA) preserving and presenting the historic Sanskrit **Ashtavadhanam** performance held on **20th January 1997** at Pondicherry, organized by **Sri Aurobindo Society** and the **Department of Sanskrit, Pondicherry University**.
 
 Forensically reverse-engineered from the original 1997 Macromedia Director CD-ROM into open, future-proof web standards with **100% content fidelity and zero data loss**.
 

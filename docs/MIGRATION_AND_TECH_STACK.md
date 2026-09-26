@@ -1,6 +1,6 @@
-# Aṣṭāvadhānam (1997 → 2026): Modernization, Tech Stack & Data Integrity Guide
+# Ashtavadhanam (1997 → 2026): Modernization, Tech Stack & Data Integrity Guide
 
-> **Project:** Aṣṭāvadhānam — The Wonder that is Sanskrit (1997 CD-ROM Digital Heritage Preservation)  
+> **Project:** Ashtavadhanam — The Wonder that is Sanskrit (1997 CD-ROM Digital Heritage Preservation)  
 > **Target Release:** 2026 Modern Standalone Web Application & Progressive Web App (PWA)  
 > **Preservation Baseline:** Sri Aurobindo Society, Pondicherry (1997 Historic Multimedia CD-ROM)
 
@@ -8,7 +8,7 @@
 
 ## 1. Executive Modernization Overview
 
-In 1997, the Sri Aurobindo Society published a landmark multimedia CD-ROM documenting a historic **Aṣṭāvadhānam** (an eightfold feat of simultaneous Sanskrit memory, versification, and intellect). Built with **Macromedia Director 7/8**, **Intel Indeo Video 5**, and **16-bit uncompressed PCM audio**, the application became unplayable on modern operating systems after the deprecation of 32-bit runtimes, Flash Player, and proprietary codecs.
+In 1997, the Sri Aurobindo Society published a landmark multimedia CD-ROM documenting a historic **Ashtavadhanam** (an eightfold feat of simultaneous Sanskrit memory, versification, and intellect). Built with **Macromedia Director 7/8**, **Intel Indeo Video 5**, and **16-bit uncompressed PCM audio**, the application became unplayable on modern operating systems after the deprecation of 32-bit runtimes, Flash Player, and proprietary codecs.
 
 In 2026, the entire multimedia application was forensically reverse-engineered and reconstructed as a **zero-dependency, future-proof, standalone web application**.
 

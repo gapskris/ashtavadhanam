@@ -1,6 +1,6 @@
-# Aṣṭāvadhānam Modern: Complete Access & User Guide
+# Ashtavadhanam Modern: Complete Access & User Guide
 
-> **Application:** Aṣṭāvadhānam — The Wonder that is Sanskrit (1997 CD-ROM → 2026 Modern Web App)  
+> **Application:** Ashtavadhanam — The Wonder that is Sanskrit (1997 CD-ROM → 2026 Modern Web App)  
 > **Platform Support:** Desktop (Windows, macOS, Linux), Mobile & Tablet (iOS, Android), 10-Foot Smart TV
 
 ---
