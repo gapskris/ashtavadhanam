@@ -244,10 +244,29 @@ button {
   transition: var(--transition);
 }
 
+.home-emblem-btn {
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(229, 169, 60, 0.4);
+  background: var(--bg-card);
+}
+
+.header-emblem-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
 @media (hover: hover) {
   .icon-btn:hover {
     background: var(--bg-card);
     color: var(--accent-gold);
+  }
+  .home-emblem-btn:hover {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 10px rgba(229, 169, 60, 0.4);
   }
 }
 
