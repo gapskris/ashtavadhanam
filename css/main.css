@@ -576,57 +576,81 @@ button {
   border-radius: var(--radius-md);
   padding: 8px 10px;
   margin-bottom: 16px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .round-nav-arrow {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  min-height: 44px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  flex-shrink: 0; /* CRITICAL: prevents arrow buttons from being crushed by flex blowout */
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: var(--accent-gold);
-  font-size: 1.2rem;
-  border: none;
-  background: transparent;
-  border-radius: var(--radius-sm);
+  font-size: 1.3rem;
+  font-weight: bold;
+  border: 1px solid var(--border-gold);
+  background: var(--bg-card);
+  border-radius: 50%;
   user-select: none;
   transition: var(--transition);
+  z-index: 2;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
 }
 
 .round-nav-arrow:hover {
-  background: var(--bg-card);
+  background: var(--bg-card-hover);
   color: #fff;
+  border-color: var(--accent-gold-hover);
 }
 
 .round-pills {
   flex: 1;
+  min-width: 0; /* CRITICAL: allows flex child to shrink within screen bounds and enable horizontal scrolling */
   display: flex;
   gap: 6px;
   overflow-x: auto;
-  padding: 4px 2px;
+  padding: 4px 4px 8px 4px;
   scroll-behavior: smooth;
   scroll-snap-type: x proximity;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(184, 134, 11, 0.6) rgba(255, 255, 255, 0.05);
 }
 
 .round-pills::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  height: 0;
+  display: block;
+  height: 5px;
+}
+
+.round-pills::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.round-pills::-webkit-scrollbar-thumb {
+  background: rgba(184, 134, 11, 0.6);
+  border-radius: 3px;
+}
+
+.round-pills::-webkit-scrollbar-thumb:hover {
+  background: rgba(217, 119, 6, 0.9);
 }
 
 .round-pill {
   padding: 8px 16px;
-  min-height: 44px;
-  border-radius: 24px;
+  min-height: 40px;
+  border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 600;
   white-space: nowrap;
+  flex-shrink: 0; /* Prevents pill shrinkage inside scrolling container */
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
@@ -917,16 +941,33 @@ button {
   }
   
   .round-bar-container {
-    padding: 6px;
+    padding: 6px 8px;
+    gap: 6px;
+    border-radius: var(--radius-sm);
   }
   
+  .round-nav-arrow {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    min-height: 34px;
+    font-size: 1.15rem;
+  }
+
+  .round-pills {
+    gap: 5px;
+    padding: 2px 2px 6px 2px;
+  }
+
   .round-pill {
-    padding: 8px 14px;
-    font-size: 0.85rem;
+    padding: 6px 12px;
+    min-height: 34px;
+    font-size: 0.82rem;
   }
   
   .stage-header-info {
-    padding: 14px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
   }
   
   .stage-actions {
@@ -939,7 +980,7 @@ button {
   }
   
   .main-content {
-    padding: 10px 8px;
+    padding: 10px 8px calc(var(--player-height) + 36px) 8px;
   }
 }
 

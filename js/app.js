@@ -866,7 +866,11 @@ class AshtavadhanamApp {
       pill.classList.toggle('active', isCur);
       pill.setAttribute('aria-selected', isCur ? 'true' : 'false');
       if (isCur) {
-        pill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        if (pageNumber === 1 && this.roundPillsContainer) {
+          this.roundPillsContainer.scrollLeft = 0;
+        } else {
+          pill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
       }
     });
 
@@ -879,13 +883,13 @@ class AshtavadhanamApp {
     const nextBtn = document.getElementById('btn-round-next');
     if (prevBtn) {
       prevBtn.title = pageNumber > 1 ? `Previous: Page ${pageNumber - 1}` : 'First Page';
-      prevBtn.style.opacity = pageNumber > 1 ? '1' : '0.35';
+      prevBtn.style.opacity = pageNumber > 1 ? '1' : '0.4';
       prevBtn.style.pointerEvents = pageNumber > 1 ? 'auto' : 'none';
       prevBtn.setAttribute('aria-disabled', pageNumber > 1 ? 'false' : 'true');
     }
     if (nextBtn) {
       nextBtn.title = pageNumber < 25 ? `Next: Page ${pageNumber + 1}` : 'Final Page';
-      nextBtn.style.opacity = pageNumber < 25 ? '1' : '0.35';
+      nextBtn.style.opacity = pageNumber < 25 ? '1' : '0.4';
       nextBtn.style.pointerEvents = pageNumber < 25 ? 'auto' : 'none';
       nextBtn.setAttribute('aria-disabled', pageNumber < 25 ? 'false' : 'true');
     }
