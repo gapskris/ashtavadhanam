@@ -506,6 +506,53 @@ button {
   color: #f87171 !important;
 }
 
+/* PWA In-App Install Button & Drawer Link */
+.install-pwa-btn {
+  background: linear-gradient(135deg, rgba(229, 169, 60, 0.22) 0%, rgba(200, 140, 30, 0.4) 100%);
+  border: 1px solid var(--accent-gold);
+  color: #ffd875;
+  box-shadow: 0 0 10px rgba(229, 169, 60, 0.35);
+  animation: pulse-gold-subtle 2.5s infinite ease-in-out;
+}
+
+.install-pwa-btn:hover {
+  background: var(--accent-gold);
+  color: #1a1410;
+  transform: scale(1.08);
+  box-shadow: 0 0 15px rgba(229, 169, 60, 0.6);
+}
+
+.nav-link-install {
+  border-left: 3px solid var(--accent-gold);
+  background: rgba(229, 169, 60, 0.1);
+}
+
+.nav-link-install:hover {
+  background: rgba(229, 169, 60, 0.22);
+  border-left-color: #ffd875;
+}
+
+.nav-link-install .text-primary-label {
+  color: #ffd875;
+  font-weight: 600;
+}
+
+@keyframes pulse-gold-subtle {
+  0%, 100% {
+    box-shadow: 0 0 6px rgba(229, 169, 60, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(229, 169, 60, 0.75);
+  }
+}
+
+@media all and (display-mode: standalone) {
+  #btn-install-pwa,
+  #btn-install-pwa-drawer {
+    display: none !important;
+  }
+}
+
 /* ================= OPTION 1: RESPONSIVE DOCKED SIDEBAR (>= 1280px) ================= */
 @media (min-width: 1280px) {
   /* Default: Sidebar is docked on desktop */

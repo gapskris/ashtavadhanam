@@ -190,6 +190,7 @@ class AshtavadhanamApp {
     }
 
     this.registerServiceWorker();
+    this.initPWAInstallPrompt();
   }
 
   /* ================= AUTHENTIC OPENING SEQUENCE CONTROLLER ================= */
@@ -1327,6 +1328,64 @@ class AshtavadhanamApp {
     `).join('');
   }
 
+  initPWAInstallPrompt() {
+    this.btnInstallHeader = document.getElementById('btn-install-pwa');
+    this.btnInstallDrawer = document.getElementById('btn-install-pwa-drawer');
+
+    // If app is already running in standalone PWA window, keep buttons hidden
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    if (isStandalone) {
+      if (this.btnInstallHeader) this.btnInstallHeader.classList.add('hidden');
+      if (this.btnInstallDrawer) this.btnInstallDrawer.classList.add('hidden');
+      return;
+    }
+
+    // Check if prompt was captured early
+    if (window.deferredPWAInstallPrompt) {
+      this.showPWAInstallButtons();
+    }
+
+    const handleInstallClick = async () => {
+      if (window.deferredPWAInstallPrompt) {
+        window.deferredPWAInstallPrompt.prompt();
+        const choice = await window.deferredPWAInstallPrompt.userChoice;
+        if (choice && choice.outcome === 'accepted') {
+          if (this.btnInstallHeader) this.btnInstallHeader.classList.add('hidden');
+          if (this.btnInstallDrawer) this.btnInstallDrawer.classList.add('hidden');
+        }
+        window.deferredPWAInstallPrompt = null;
+      } else {
+        // Fallback guidance for PC / Safari / Firefox
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+          alert('Ashtavadhanam is already installed and running as a standalone app! / अष्टवधानम् पूर्वमेव संस्थापितम्।');
+        } else {
+          alert('To install Ashtavadhanam App:\n\n• On Chrome/Edge PC: Look for the Install icon (🖥️ ⬇ or ⊞+) in the right side of the address bar, or click browser menu (⋮ / …) → "Install Ashtavadhanam".\n• On Safari iPhone/iPad: Tap Share (⎋) → "Add to Home Screen".\n• On Android Chrome: Tap menu (⋮) → "Install app" or "Add to Home screen".');
+        }
+      }
+    };
+
+    if (this.btnInstallHeader) {
+      this.btnInstallHeader.addEventListener('click', handleInstallClick);
+    }
+    if (this.btnInstallDrawer) {
+      this.btnInstallDrawer.addEventListener('click', handleInstallClick);
+    }
+
+    window.addEventListener('appinstalled', () => {
+      console.log('[PWA] App installed successfully');
+      if (this.btnInstallHeader) this.btnInstallHeader.classList.add('hidden');
+      if (this.btnInstallDrawer) this.btnInstallDrawer.classList.add('hidden');
+      window.deferredPWAInstallPrompt = null;
+    });
+  }
+
+  showPWAInstallButtons() {
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    if (isStandalone) return;
+    if (this.btnInstallHeader) this.btnInstallHeader.classList.remove('hidden');
+    if (this.btnInstallDrawer) this.btnInstallDrawer.classList.remove('hidden');
+  }
+
   registerServiceWorker() {
     if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
       navigator.serviceWorker.register('sw.js').then((registration) => {
@@ -1347,6 +1406,15 @@ class AshtavadhanamApp {
     }
   }
 }
+
+// Global listener to capture beforeinstallprompt even if fired before DOMContentLoaded
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  window.deferredPWAInstallPrompt = e;
+  if (window.App && typeof window.App.showPWAInstallButtons === 'function') {
+    window.App.showPWAInstallButtons();
+  }
+});
 
 window.addEventListener('DOMContentLoaded', () => {
   window.App = new AshtavadhanamApp();
