@@ -828,6 +828,7 @@ class AshtavadhanamApp {
   }
 
   navigateToSection(sectionId) {
+    const previousSection = this.currentSection;
     this.currentSection = sectionId;
     document.querySelectorAll('.app-section').forEach(sec => {
       sec.classList.remove('active');
@@ -839,7 +840,7 @@ class AshtavadhanamApp {
       link.classList.toggle('active', link.dataset.section === sectionId);
     });
 
-    if (sectionId === 'avadhanaKala' || sectionId === 'concentration') {
+    if (previousSection !== sectionId && (sectionId === 'avadhanaKala' || sectionId === 'concentration')) {
       this.playTempleChime();
     }
     
@@ -1391,18 +1392,9 @@ class AshtavadhanamApp {
     if (this.btnInstallDrawer) this.btnInstallDrawer.classList.remove('hidden');
   }
 
-  /* ================= DIRECTOR LEGACY TEMPLE BELL CHIMES ================= */
+  /* ================= SACRED TEMPLE BELL CHIME SYNTHESIZER ================= */
   initTempleChimes() {
-    this.chimesEnabled = localStorage.getItem('ashtavadhanam_chimes_enabled') !== 'false';
-    try {
-      this.templeChimeAudio = new Audio();
-      const canM4A = this.templeChimeAudio.canPlayType('audio/mp4; codecs="mp4a.40.2"');
-      this.templeChimeAudio.src = canM4A ? 'assets/audio/special/track_01.m4a' : 'assets/audio/special/track_01.mp3';
-      this.templeChimeAudio.volume = 0.35;
-      this.templeChimeAudio.preload = 'auto';
-    } catch(err) {
-      console.warn('Temple chime init:', err);
-    }
+    this.chimesEnabled = localStorage.getItem('ashtavadhanam_chimes_enabled') === 'true';
 
     const btnDrawerChimes = document.getElementById('btn-toggle-chimes');
     const btnPlayerChimes = document.getElementById('btn-player-chimes');
@@ -1421,16 +1413,49 @@ class AshtavadhanamApp {
     this.updateChimesUI();
   }
 
-  playTempleChime(force = false) {
-    if ((!this.chimesEnabled && !force) || !this.templeChimeAudio) return;
+  playTempleChime(preview = false) {
+    if (!this.chimesEnabled && !preview) return;
     try {
-      this.templeChimeAudio.currentTime = 0;
-      const p = this.templeChimeAudio.play();
-      if (p && typeof p.catch === 'function') {
-        p.catch(() => {});
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      if (!this.bellAudioCtx || this.bellAudioCtx.state === 'closed') {
+        this.bellAudioCtx = new AudioCtx();
       }
+      if (this.bellAudioCtx.state === 'suspended') {
+        this.bellAudioCtx.resume().catch(() => {});
+      }
+      const ctx = this.bellAudioCtx;
+      const now = ctx.currentTime;
+      const masterGain = ctx.createGain();
+      masterGain.gain.setValueAtTime(0.22, now);
+      masterGain.connect(ctx.destination);
+
+      // Authentic Temple Bell partials (fundamental 528Hz Vedic scale + golden overtone series)
+      const partials = [
+        { mult: 0.50, gain: 0.12, decay: 1.8 }, // warm resonant undertone
+        { mult: 1.00, gain: 0.40, decay: 2.2 }, // striking fundamental
+        { mult: 2.76, gain: 0.22, decay: 1.3 }, // resonant bronze overtone
+        { mult: 5.40, gain: 0.10, decay: 0.7 }, // shimmering upper harmonic
+        { mult: 8.93, gain: 0.05, decay: 0.3 }  // crystal bell strike ping
+      ];
+
+      partials.forEach(p => {
+        const osc = ctx.createOscillator();
+        const g = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(528 * p.mult, now);
+
+        g.gain.setValueAtTime(p.gain, now);
+        g.gain.exponentialRampToValueAtTime(0.0001, now + p.decay);
+
+        osc.connect(g);
+        g.connect(masterGain);
+
+        osc.start(now);
+        osc.stop(now + p.decay + 0.1);
+      });
     } catch(err) {
-      console.warn('Temple chime play:', err);
+      console.warn('Temple chime play error:', err);
     }
   }
 
