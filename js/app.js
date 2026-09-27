@@ -47,9 +47,53 @@ class AshtavadhanamApp {
     // Opening Sequence
     this.initOpeningSequence();
 
-    // Navigation Drawer
-    this.btnToggleMenu.addEventListener('click', () => this.navDrawer.classList.toggle('open'));
-    this.btnCloseNav.addEventListener('click', () => this.navDrawer.classList.remove('open'));
+    // Option 1: Responsive Docked Sidebar on Desktop (>= 1280px)
+    const backdropEl = document.getElementById('nav-drawer-backdrop');
+    const btnCollapseSidebar = document.getElementById('btn-collapse-sidebar');
+
+    const initSidebarState = () => {
+      if (window.innerWidth >= 1280) {
+        document.body.classList.add('sidebar-docked');
+        document.body.classList.remove('sidebar-collapsed');
+      } else {
+        document.body.classList.remove('sidebar-docked', 'sidebar-collapsed');
+      }
+    };
+    initSidebarState();
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth < 1280 && document.body.classList.contains('sidebar-docked')) {
+        document.body.classList.remove('sidebar-docked', 'sidebar-collapsed');
+      } else if (window.innerWidth >= 1280 && !document.body.classList.contains('sidebar-collapsed')) {
+        document.body.classList.add('sidebar-docked');
+      }
+    });
+
+    const closeDrawerMobile = () => {
+      this.navDrawer.classList.remove('open');
+      if (backdropEl) backdropEl.classList.remove('active');
+    };
+
+    const toggleDrawer = () => {
+      if (window.innerWidth >= 1280) {
+        const isCollapsed = document.body.classList.toggle('sidebar-collapsed');
+        document.body.classList.toggle('sidebar-docked', !isCollapsed);
+      } else {
+        const isOpen = this.navDrawer.classList.toggle('open');
+        if (backdropEl) backdropEl.classList.toggle('active', isOpen);
+      }
+    };
+
+    this.btnToggleMenu.addEventListener('click', toggleDrawer);
+    this.btnCloseNav.addEventListener('click', closeDrawerMobile);
+    if (backdropEl) backdropEl.addEventListener('click', closeDrawerMobile);
+
+    if (btnCollapseSidebar) {
+      btnCollapseSidebar.addEventListener('click', () => {
+        document.body.classList.add('sidebar-collapsed');
+        document.body.classList.remove('sidebar-docked');
+      });
+    }
 
     // Home Button & Brand Click -> Return directly to Main Landing Page
     const handleHomeClick = () => {
@@ -66,7 +110,7 @@ class AshtavadhanamApp {
         const sec = e.currentTarget.dataset.section;
         if (sec) {
           this.navigateToSection(sec);
-          this.navDrawer.classList.remove('open');
+          closeDrawerMobile();
         }
       });
     });
@@ -921,25 +965,35 @@ class AshtavadhanamApp {
       const cleanSan = san.replace(/^(अवधानी|निषिद्धाक्षरी|नष्िाधाक्षरी|अप्रस्तुतप्रसङ्गः?|अप्रस्तुतप्रसङ्ग|समस्या|दत्तपदी|व्यस्ताक्षरी|व्याख्याकारः?|सभापतिः?|घण्टा):\s*/i, '').trim();
       const cleanEng = eng.replace(/^(Avadhānī|Niṣiddhākṣarī|Aprastutaprasaṅga|Aprastutaprasanga|Samasyā|Dattapadī|Vyastākṣarī|Commentator|President|The Bell|Ghaṇṭā):\s*/i, '').trim();
 
-      // Compact turn for single-syllable / brief banter responses (e.g. Card 3 'अ')
+      // Single-syllable / brief banter responses (e.g. Card 3 'अ', 'र्त्य', 'लो')
       const isCompactTurn = cleanSan.length > 0 && cleanSan.length <= 4 && !cleanSan.includes('\n');
       if (isCompactTurn) {
         card.classList.add('compact-turn');
+        card.innerHTML = `
+          <div class="dialogue-header compact-header">
+            <div class="speaker-seal-wrap">
+              <span class="speaker-seal ${speakerInfo.cssClass}">〔 ${speakerInfo.name} 〕</span>
+              <span class="compact-turn-subtitle">✦ प्रथमाक्षरम् • First Syllable Turn</span>
+            </div>
+            ${audioButtonHtml}
+          </div>
+          <div class="dialogue-body compact-body">
+            <div class="text-sanskrit akshara-hero">${this.formatText(cleanSan)}</div>
+            ${cleanEng ? `<div class="text-english">${this.formatText(cleanEng)}</div>` : ''}
+          </div>
+        `;
+      } else {
+        card.innerHTML = `
+          <div class="dialogue-header">
+            <span class="speaker-seal ${speakerInfo.cssClass}">〔 ${speakerInfo.name} 〕</span>
+            ${audioButtonHtml}
+          </div>
+          <div class="dialogue-body">
+            <div class="text-sanskrit">${this.formatSanskritVerse(cleanSan)}</div>
+            ${cleanEng ? `<div class="text-english">${this.formatText(cleanEng)}</div>` : ''}
+          </div>
+        `;
       }
-
-      const noteHtml = isCompactTurn ? `<span class="compact-turn-note">✦ अक्षरम् • Syllable Turn</span>` : '';
-
-      card.innerHTML = `
-        <div class="dialogue-header">
-          <span class="speaker-badge ${speakerInfo.cssClass}">${speakerInfo.name}</span>
-          ${noteHtml}
-          ${audioButtonHtml}
-        </div>
-        <div class="dialogue-body">
-          <div class="text-sanskrit">${this.formatText(cleanSan)}</div>
-          ${cleanEng ? `<div class="text-english">${this.formatText(cleanEng)}</div>` : ''}
-        </div>
-      `;
 
       const btn = card.querySelector('.dialogue-audio-btn');
       if (btn) {
@@ -1043,6 +1097,19 @@ class AshtavadhanamApp {
   }
 
   formatText(str) {
+    return str.replace(/\n/g, '<br>');
+  }
+
+  formatSanskritVerse(str) {
+    if (!str) return '';
+    const rawLines = str.split('\n').map(l => l.trim()).filter(Boolean);
+    if (rawLines.length >= 2) {
+      return rawLines.map((line, idx) => {
+        const isEvenPada = (idx % 2 === 1);
+        const padaClass = isEvenPada ? 'verse-line pada-even' : 'verse-line pada-odd';
+        return `<span class="${padaClass}">${line}</span>`;
+      }).join('');
+    }
     return str.replace(/\n/g, '<br>');
   }
 

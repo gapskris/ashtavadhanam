@@ -134,27 +134,178 @@
       </div>
     </header>
 
-    <!-- NAVIGATION DRAWER / NAV BAR -->
+    <!-- NAVIGATION DRAWER BACKDROP (Mobile / Tablet Scrim) -->
+    <div id="nav-drawer-backdrop" class="nav-drawer-backdrop hidden"></div>
+
+    <!-- NAVIGATION DRAWER / RESPONSIVE DOCKED SIDEBAR -->
     <nav id="nav-drawer" class="nav-drawer">
       <div class="nav-drawer-header">
-        <h3>Contents / विषयसूची</h3>
-        <button id="btn-close-nav" class="icon-btn">✕</button>
+        <div class="nav-header-title">
+          <span class="nav-title-sa">॥ विषयसूची ॥</span>
+          <span class="nav-title-en">Table of Contents</span>
+        </div>
+        <button id="btn-collapse-sidebar" class="sidebar-toggle-btn" title="Toggle Sidebar (◄ / ►)" aria-label="Toggle Sidebar">◀</button>
+        <button id="btn-close-nav" class="icon-btn mobile-close-btn" aria-label="Close Menu">✕</button>
       </div>
-      <ul class="nav-links">
-        <li><button class="nav-link active" data-section="performance">🎭 The Performance (25 Rounds)</button></li>
-        <li><button class="nav-link" data-section="avadhanaKala">📜 Avadhana Kala (7 Chapters & Canvases)</button></li>
-        <li><button class="nav-link" data-section="concentration">🧘 Concentration (6 Pages & Canvases)</button></li>
-        <li><button class="nav-link" data-section="glimpses">🎥 Glimpses Video Gallery (15 Videos)</button></li>
-        <li><button class="nav-link" data-section="scholars">👥 The Scholars & Assembly Photo</button></li>
-        <li><button class="nav-link" data-section="institutions">🏛️ Participating Institutions</button></li>
-        <li><button class="nav-link" data-section="society">🕊️ Sri Aurobindo Society</button></li>
-        <li><button class="nav-link" data-section="acknowledgments">📜 Credits & Acknowledgments</button></li>
-        <li><button class="nav-link" data-section="help">❓ Guide & Help (सहायता)</button></li>
-        <li><button class="nav-link" id="btn-nav-search">🔍 Sanskrit Search (अन्वेषणम्)</button></li>
-        <li><button class="nav-link" data-section="gallery">🖼️ Historical Artwork Gallery</button></li>
-        <li><button class="nav-link" id="btn-replay-opening">🎞️ Replay Opening Title & Video</button></li>
-        <li><button class="nav-link" id="btn-exit" style="color: #ef4444;">🚪 Exit / निर्गमनम् (Return to Gateway)</button></li>
-      </ul>
+
+      <div class="nav-scroll-area">
+        <!-- CATEGORY 1: THE PERFORMANCE -->
+        <div class="nav-group">
+          <div class="nav-category-header">
+            <span class="cat-sa">मुख्यप्रयोगाः</span>
+            <span class="cat-en">The Performance</span>
+          </div>
+          <ul class="nav-links">
+            <li>
+              <button class="nav-link active" data-section="performance">
+                <span class="nav-icon">🎭</span>
+                <span class="nav-text">
+                  <span class="text-primary-label">The 25 Rounds</span>
+                  <span class="text-secondary-label">पञ्चविंशति-पर्य्यायाः</span>
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- CATEGORY 2: PHILOSOPHY & TREATISES -->
+        <div class="nav-group">
+          <div class="nav-category-header">
+            <span class="cat-sa">शास्त्रग्रन्थाः</span>
+            <span class="cat-en">Treatises & Philosophy</span>
+          </div>
+          <ul class="nav-links">
+            <li>
+              <button class="nav-link" data-section="avadhanaKala">
+                <span class="nav-icon">📜</span>
+                <span class="nav-text">
+                  <span class="text-primary-label">Avadhana Kala (7 Ch.)</span>
+                  <span class="text-secondary-label">अवधानकला-प्रबन्धः</span>
+                </span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-link" data-section="concentration">
+                <span class="nav-icon">🧘</span>
+                <span class="nav-text">
+                  <span class="text-primary-label">Concentration (6 Pages)</span>
+                  <span class="text-secondary-label">धारणा-दर्शनम्</span>
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- CATEGORY 3: HISTORICAL ARCHIVES -->
+        <div class="nav-group">
+          <div class="nav-category-header">
+            <span class="cat-sa">ऐतिहासिकाभिलेखाः</span>
+            <span class="cat-en">Historical Archives</span>
+          </div>
+          <ul class="nav-links">
+            <li>
+              <button class="nav-link" data-section="glimpses">
+                <span class="nav-icon">🎥</span>
+                <span class="nav-text">
+                  <span class="text-primary-label">Glimpses (15 Videos)</span>
+                  <span class="text-secondary-label">ऐतिहासिक-चलचित्राणि</span>
+                </span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-link" data-section="scholars">
+                <span class="nav-icon">👥</span>
+                <span class="nav-text">
+                  <span class="text-primary-label">The Scholars & Assembly</span>
+                  <span class="text-secondary-label">पण्डित-सभा-परिचयः</span>
+                </span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-link" data-section="institutions">
+                <span class="nav-icon">🏛️</span>
+                <span class="nav-text">
+                  <span class="text-primary-label">Participating Institutions</span>
+                  <span class="text-secondary-label">सहभागि-संस्थाः</span>
+                </span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-link" data-section="society">
+                <span class="nav-icon">🕊️</span>
+                <span class="nav-text">
+                  <span class="text-primary-label">Sri Aurobindo Society</span>
+                  <span class="text-secondary-label">श्रीअरविन्द-संस्था</span>
+                </span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-link" data-section="gallery">
+                <span class="nav-icon">🖼️</span>
+                <span class="nav-text">
+                  <span class="text-primary-label">Master Historical Gallery</span>
+                  <span class="text-secondary-label">चित्रशाला</span>
+                </span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-link" data-section="acknowledgments">
+                <span class="nav-icon">📜</span>
+                <span class="nav-text">
+                  <span class="text-primary-label">Credits & Acknowledgments</span>
+                  <span class="text-secondary-label">कृतज्ञता</span>
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- CATEGORY 4: TOOLS & SYSTEM -->
+        <div class="nav-group">
+          <div class="nav-category-header">
+            <span class="cat-sa">साधनानि</span>
+            <span class="cat-en">Tools & System</span>
+          </div>
+          <ul class="nav-links">
+            <li>
+              <button class="nav-link" id="btn-nav-search">
+                <span class="nav-icon">🔍</span>
+                <span class="nav-text">
+                  <span class="text-primary-label">Sanskrit Search Engine</span>
+                  <span class="text-secondary-label">संस्कृत-अन्वेषणम्</span>
+                </span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-link" data-section="help">
+                <span class="nav-icon">❓</span>
+                <span class="nav-text">
+                  <span class="text-primary-label">User Guide & Help</span>
+                  <span class="text-secondary-label">सहायता</span>
+                </span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-link" id="btn-replay-opening">
+                <span class="nav-icon">🎞️</span>
+                <span class="nav-text">
+                  <span class="text-primary-label">Replay Opening Montage</span>
+                  <span class="text-secondary-label">उद्घाटनाभिनयः</span>
+                </span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-link nav-link-exit" id="btn-exit">
+                <span class="nav-icon">🚪</span>
+                <span class="nav-text">
+                  <span class="text-primary-label">Exit to Gateway</span>
+                  <span class="text-secondary-label">निर्गमनम्</span>
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
     </nav>
 
     <!-- MAIN STAGE -->
