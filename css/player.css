@@ -35,10 +35,13 @@
   background: transparent !important;
   background-image: none !important;
   background-repeat: no-repeat !important;
-  /* Top 17.5% starts Card 1 right below the y=0..105px banner, utilizing the upper blank parchment */
-  padding: 17.5% 3.5% 40px 3.5%;
+  /* Lift starting card to 13.2% so Card 1 begins right below the top banner across all 25 slides */
+  padding: 13.2% 3.5% 56px 3.5%;
   scrollbar-width: thin;
   scrollbar-color: rgba(184, 134, 11, 0.5) transparent;
+  /* Organic bottom scroll fade to prevent harsh card slicing */
+  mask-image: linear-gradient(to bottom, black calc(100% - 32px), rgba(0, 0, 0, 0.2) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 32px), rgba(0, 0, 0, 0.2) 100%);
 }
 
 .dialogues-wrapper::-webkit-scrollbar {
@@ -61,26 +64,26 @@
 @media (min-width: 768px) {
   /* For rounds with illustrations at bottom-left (e.g. Round 1 Diyas, Round 5, 11, etc.) */
   .dialogues-wrapper.art-left {
-    padding-top: 17.5%;
+    padding-top: 13.2%;
     padding-left: 38%; /* Leaves the lower-left diya zone (x=0..298px) 100% uncovered! */
     padding-right: 3.5%;
-    padding-bottom: 44px;
+    padding-bottom: 56px;
   }
 
   /* For rounds with illustrations at bottom-right (e.g. Round 2, 9) */
   .dialogues-wrapper.art-right {
-    padding-top: 17.5%;
+    padding-top: 13.2%;
     padding-right: 38%; /* Leaves the lower-right illustration 100% uncovered! */
     padding-left: 3.5%;
-    padding-bottom: 44px;
+    padding-bottom: 56px;
   }
 
   /* For center/subtle watermark rounds */
   .dialogues-wrapper.art-center {
-    padding-top: 17.5%;
+    padding-top: 13.2%;
     padding-left: 6%;
     padding-right: 6%;
-    padding-bottom: 44px;
+    padding-bottom: 56px;
   }
 }
 
@@ -88,31 +91,88 @@
 .dialogue-card {
   position: relative;
   z-index: 2;
-  background: rgba(254, 250, 240, 0.88);
-  border: 1px solid rgba(168, 120, 48, 0.45);
+  background: rgba(255, 251, 240, 0.94);
+  border: 1px solid rgba(184, 134, 11, 0.45);
+  box-shadow: 0 3px 12px rgba(45, 25, 10, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.65);
   border-radius: 10px;
-  padding: 12px 16px;
+  padding: 11px 15px;
   transition: all 0.25s ease;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   color: #2b1908;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
 .dialogue-card:hover {
-  background: rgba(255, 253, 248, 0.96);
-  border-color: #b8860b;
-  box-shadow: 0 5px 18px rgba(184, 134, 11, 0.3);
+  background: rgba(255, 253, 246, 0.98);
+  border-color: #c28d32;
+  box-shadow: 0 5px 18px rgba(184, 134, 11, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.85);
   transform: translateY(-1px);
 }
 
 .dialogue-card.active {
-  background: rgba(255, 254, 250, 0.99);
+  background: rgba(255, 254, 248, 1);
   border-color: #d97706;
   border-width: 2px;
-  box-shadow: 0 0 18px rgba(217, 119, 6, 0.4), 0 4px 14px rgba(0,0,0,0.25);
+  box-shadow: 0 0 18px rgba(217, 119, 6, 0.35), 0 4px 14px rgba(0, 0, 0, 0.2);
   transform: scale(1.008);
+}
+
+/* Compact turn styling for single-akṣara / brief banter responses (e.g. Card 3 'अ') */
+.dialogue-card.compact-turn {
+  padding: 7px 13px;
+  background: rgba(255, 250, 236, 0.95);
+  border: 1px dashed rgba(184, 134, 11, 0.6);
+}
+
+.dialogue-card.compact-turn .dialogue-header {
+  margin-bottom: 4px;
+}
+
+.dialogue-card.compact-turn .dialogue-body {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.dialogue-card.compact-turn .text-sanskrit {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #b45309;
+  line-height: 1.1;
+  margin-bottom: 0;
+}
+
+.dialogue-card.compact-turn .compact-turn-note {
+  font-size: 0.8rem;
+  color: #854d0e;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+
+/* Floating Scroll Hint Pill */
+.scroll-hint-pill {
+  position: absolute;
+  bottom: 12px;
+  right: 18px;
+  z-index: 10;
+  background: rgba(38, 22, 10, 0.88);
+  color: #f7e7c4;
+  border: 1px solid rgba(229, 169, 60, 0.65);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  transition: opacity 0.35s ease;
+  animation: bounce-subtle 2.2s infinite ease-in-out;
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }
 
 .dialogue-header {

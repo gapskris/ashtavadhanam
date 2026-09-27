@@ -15,7 +15,7 @@
   --border-gold: #c28d32;
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-serif: "Georgia", "Times New Roman", "Cambria", serif;
-  --font-devanagari: "Noto Sans Devanagari", "Tiro Devanagari Sanskrit", "Mangal", "Sanskrit Text", serif;
+  --font-devanagari: "Tiro Devanagari Sanskrit", "Noto Serif Devanagari", "Noto Sans Devanagari", "Mangal", "Sanskrit Text", serif;
   --header-height: 64px;
   --player-height: 84px;
   --radius-sm: 8px;
@@ -402,18 +402,15 @@ button {
   padding: 4px 2px;
   scroll-behavior: smooth;
   scroll-snap-type: x proximity;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-gold) transparent;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
   -webkit-overflow-scrolling: touch;
 }
 
 .round-pills::-webkit-scrollbar {
-  height: 4px;
-}
-
-.round-pills::-webkit-scrollbar-thumb {
-  background: var(--border-gold);
-  border-radius: 4px;
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .round-pill {

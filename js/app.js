@@ -891,14 +891,23 @@ class AshtavadhanamApp {
       const cleanSan = san.replace(/^(अवधानी|निषिद्धाक्षरी|नष्िाधाक्षरी|अप्रस्तुतप्रसङ्गः?|अप्रस्तुतप्रसङ्ग|समस्या|दत्तपदी|व्यस्ताक्षरी|व्याख्याकारः?|सभापतिः?|घण्टा):\s*/i, '').trim();
       const cleanEng = eng.replace(/^(Avadhānī|Niṣiddhākṣarī|Aprastutaprasaṅga|Aprastutaprasanga|Samasyā|Dattapadī|Vyastākṣarī|Commentator|President|The Bell|Ghaṇṭā):\s*/i, '').trim();
 
+      // Compact turn for single-syllable / brief banter responses (e.g. Card 3 'अ')
+      const isCompactTurn = cleanSan.length > 0 && cleanSan.length <= 4 && !cleanSan.includes('\n');
+      if (isCompactTurn) {
+        card.classList.add('compact-turn');
+      }
+
+      const noteHtml = isCompactTurn ? `<span class="compact-turn-note">✦ अक्षरम् • Syllable Turn</span>` : '';
+
       card.innerHTML = `
         <div class="dialogue-header">
           <span class="speaker-badge ${speakerInfo.cssClass}">${speakerInfo.name}</span>
+          ${noteHtml}
           ${audioButtonHtml}
         </div>
         <div class="dialogue-body">
           <div class="text-sanskrit">${this.formatText(cleanSan)}</div>
-          <div class="text-english">${this.formatText(cleanEng)}</div>
+          ${cleanEng ? `<div class="text-english">${this.formatText(cleanEng)}</div>` : ''}
         </div>
       `;
 
@@ -918,6 +927,31 @@ class AshtavadhanamApp {
 
     if (window.Player) {
       window.Player.setPlaylist(playlist);
+    }
+
+    // Manage scroll hint pill visibility when content overflows
+    const scrollHint = document.getElementById('scroll-hint-pill');
+    if (scrollHint) {
+      setTimeout(() => {
+        if (this.dialoguesWrapper.scrollHeight > this.dialoguesWrapper.clientHeight + 25) {
+          scrollHint.classList.remove('hidden');
+          scrollHint.style.opacity = '1';
+        } else {
+          scrollHint.classList.add('hidden');
+        }
+      }, 120);
+
+      this.dialoguesWrapper.onscroll = () => {
+        if (this.dialoguesWrapper.scrollTop > 20) {
+          scrollHint.style.opacity = '0';
+          setTimeout(() => {
+            if (this.dialoguesWrapper.scrollTop > 20) scrollHint.classList.add('hidden');
+          }, 350);
+        } else if (this.dialoguesWrapper.scrollHeight > this.dialoguesWrapper.clientHeight + 25) {
+          scrollHint.classList.remove('hidden');
+          scrollHint.style.opacity = '1';
+        }
+      };
     }
   }
 
