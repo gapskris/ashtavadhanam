@@ -8,6 +8,7 @@ class AshtavadhanamApp {
     this.data = window.ASHTAVADHANAM_DATA;
     this.currentPageIndex = 0;
     this.currentSection = 'performance';
+    this.displayView = 'devanagari';
     
     // Treatise reader indices
     this.currentAvadhanaIndex = 0;
@@ -49,6 +50,17 @@ class AshtavadhanamApp {
     // Navigation Drawer
     this.btnToggleMenu.addEventListener('click', () => this.navDrawer.classList.toggle('open'));
     this.btnCloseNav.addEventListener('click', () => this.navDrawer.classList.remove('open'));
+
+    // Home Button & Brand Click -> Navigate directly to Performance (Page 1)
+    const handleHomeClick = () => {
+      this.navigateToSection('performance');
+      this.navigateToPage(1, false);
+      if (this.navDrawer) this.navDrawer.classList.remove('open');
+    };
+    const btnHome = document.getElementById('btn-home');
+    if (btnHome) btnHome.addEventListener('click', handleHomeClick);
+    const brandHome = document.getElementById('brand-home');
+    if (brandHome) brandHome.addEventListener('click', handleHomeClick);
 
     // Nav Links
     document.querySelectorAll('.nav-link').forEach(link => {

@@ -190,12 +190,19 @@ button {
 .header-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .brand {
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.2s ease;
+}
+
+.brand:hover {
+  opacity: 0.88;
 }
 
 .brand-title {

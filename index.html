@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="css/player.css">
   <link rel="stylesheet" href="css/tv.css">
 </head>
-<body class="mode-bilingual">
+<body class="mode-devanagari">
 
   <!-- ================= AUTHENTIC OPENING EXPERIENCE (1997 DIRECTOR CHOREOGRAPHY) ================= -->
   <div id="splash-gateway" class="splash-screen">
@@ -112,16 +112,17 @@
     <header class="app-header">
       <div class="header-left">
         <button id="btn-toggle-menu" class="icon-btn" aria-label="Toggle Menu" title="Menu">☰</button>
-        <div class="brand">
+        <button id="btn-home" class="icon-btn" aria-label="Home" title="Home (मुख्यद्वारम् • Performance Page 1)">🏠</button>
+        <div class="brand" id="brand-home" style="cursor: pointer;" title="Go to Performance (Page 1)">
           <span class="brand-title">अष्टावधानम् <span class="brand-title-en">• Ashtavadhanam</span></span>
           <span class="brand-sub">The Wonder that is Sanskrit</span>
         </div>
       </div>
 
-      <!-- 3-WAY SANSKRIT/ENGLISH DISPLAY SWITCHER -->
+      <!-- 3-WAY SANSKRIT/ENGLISH DISPLAY SWITCHER (Default: Devanagari) -->
       <div class="view-switcher" role="group" aria-label="Language and Script View">
-        <button class="view-btn" data-view="devanagari" title="Devanagari script only">देवनागरी</button>
-        <button class="view-btn active" data-view="bilingual" title="Sanskrit and English side-by-side">Bilingual / द्विभाषी</button>
+        <button class="view-btn active" data-view="devanagari" title="Devanagari script only">देवनागरी</button>
+        <button class="view-btn" data-view="bilingual" title="Sanskrit and English side-by-side">Bilingual / द्विभाषी</button>
         <button class="view-btn" data-view="english" title="English translation and IAST macrons">English (IAST)</button>
       </div>
 
