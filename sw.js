@@ -10,7 +10,7 @@
  * 4. AUDIO: Cached at runtime only upon receiving a complete 200 OK response.
  */
 
-const CORE_CACHE_NAME = 'ashtavadhanam-core-v1.2.7';
+const CORE_CACHE_NAME = 'ashtavadhanam-core-v1.2.8';
 const MEDIA_CACHE_NAME = 'ashtavadhanam-media-v1.1.0';
 
 // Core Application Shell assets (~2.5 MB total)
