@@ -937,14 +937,25 @@ class AshtavadhanamApp {
 
     const sanParas = rawSan.split(/\n\n+/).map(s => s.trim()).filter(Boolean);
     const engParas = rawEng.split(/\n\n+/).map(s => s.trim()).filter(Boolean);
-    const speakerHeaderPat = /^(Avadhānī|Niṣiddhākṣarī|Aprastutaprasaṅga|Aprastutaprasanga|Samasyā|Dattapadī|Vyastākṣarī|The Bell|Ghaṇṭā|President|Commentator):/i;
+    // Authentic speaker headers (excluding sound cues like The Bell / Ghaṇṭā so cues remain contextual with their turns)
+    const speakerHeaderPat = /^(Avadhānī|Niṣiddhākṣarī|Aprastutaprasaṅga|Aprastutaprasanga|Samasyā|Dattapadī|Vyastākṣarī|President|Commentator):/i;
 
     const engTurns = [];
     let curEng = [];
     for (const p of engParas) {
-      if (speakerHeaderPat.test(p) && curEng.length > 0) {
-        engTurns.push(curEng.join('\n\n'));
-        curEng = [p];
+      if (speakerHeaderPat.test(p)) {
+        if (curEng.length > 0) {
+          // If engTurns is still empty, and curEng doesn't start with a speaker header,
+          // it is an intro stage direction for the first speaker, so keep it with curEng
+          if (engTurns.length === 0 && !speakerHeaderPat.test(curEng[0])) {
+            curEng.push(p);
+          } else {
+            engTurns.push(curEng.join('\n\n'));
+            curEng = [p];
+          }
+        } else {
+          curEng.push(p);
+        }
       } else {
         curEng.push(p);
       }
@@ -966,6 +977,27 @@ class AshtavadhanamApp {
       const audio = audioFiles[i];
       const san = sanTurns[i] || '';
       const eng = engTurns[i] || '';
+
+      // SUPPRESS PHANTOM CARDS:
+      // If there is no recitation (no Sanskrit and no audio file), do NOT create an empty dialogue card!
+      if (!san.trim() && !audio) {
+        // If there is English commentary/footnote text, attach it as an annotation to the preceding card
+        if (eng && this.dialoguesWrapper.lastElementChild) {
+          const prevBody = this.dialoguesWrapper.lastElementChild.querySelector('.dialogue-body');
+          if (prevBody) {
+            const cleanNote = eng.replace(/^(Commentator|President):\s*/i, '').trim();
+            const noteEl = document.createElement('div');
+            noteEl.className = 'text-english dialogue-footnote';
+            noteEl.style.marginTop = '8px';
+            noteEl.style.fontStyle = 'italic';
+            noteEl.style.opacity = '0.85';
+            noteEl.innerHTML = this.formatText(cleanNote);
+            prevBody.appendChild(noteEl);
+          }
+        }
+        continue; // Suppress empty card
+      }
+
       const speakerInfo = this.detectSpeaker(san, eng);
 
       const card = document.createElement('div');
@@ -1123,17 +1155,40 @@ class AshtavadhanamApp {
     return str.replace(/\n/g, '<br>');
   }
 
+  cleanSanskritTypography(text) {
+    if (!text) return '';
+    // Normalize multiple spaces into single space while preserving intentional newlines
+    let s = text.replace(/[ \t]+/g, ' ');
+    // Prevent danda (। or ॥) from wrapping to start of a newline by using non-breaking space
+    s = s.replace(/\s+([।॥])/g, '\u00A0$1');
+    return s;
+  }
+
+  isMetricVerse(str) {
+    if (!str) return false;
+    // Conversational dialogue cues indicate prose (Gadya)
+    if (/[?!—;:]|---|\(घण्टा|\(विहस्य|अहं मन्ये|श्रुतं वा/i.test(str)) {
+      return false;
+    }
+    const lines = str.split('\n').map(l => l.trim()).filter(Boolean);
+    if (lines.length < 2) return false;
+    const hasDanda = lines.some(l => /[।॥]/.test(l)) || str.includes('॥') || str.includes('।।');
+    return hasDanda && (lines.length === 2 || lines.length === 4 || lines.length >= 6);
+  }
+
   formatSanskritVerse(str) {
     if (!str) return '';
-    const rawLines = str.split('\n').map(l => l.trim()).filter(Boolean);
-    if (rawLines.length >= 2) {
+    const cleaned = this.cleanSanskritTypography(str);
+    if (this.isMetricVerse(cleaned)) {
+      const rawLines = cleaned.split('\n').map(l => l.trim()).filter(Boolean);
       return rawLines.map((line, idx) => {
         const isEvenPada = (idx % 2 === 1);
         const padaClass = isEvenPada ? 'verse-line pada-even' : 'verse-line pada-odd';
         return `<span class="${padaClass}">${line}</span>`;
       }).join('');
     }
-    return str.replace(/\n/g, '<br>');
+    // Clean prose dialogue (Gadya) with standard paragraph wrapping and left alignment
+    return this.formatText(cleaned);
   }
 
   renderTreatises() {
