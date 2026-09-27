@@ -51,11 +51,9 @@ class AshtavadhanamApp {
     this.btnToggleMenu.addEventListener('click', () => this.navDrawer.classList.toggle('open'));
     this.btnCloseNav.addEventListener('click', () => this.navDrawer.classList.remove('open'));
 
-    // Home Button & Brand Click -> Navigate directly to Performance (Page 1)
+    // Home Button & Brand Click -> Return directly to Main Landing Page
     const handleHomeClick = () => {
-      this.navigateToSection('performance');
-      this.navigateToPage(1, false);
-      if (this.navDrawer) this.navDrawer.classList.remove('open');
+      this.returnToLandingPage();
     };
     const btnHome = document.getElementById('btn-home');
     if (btnHome) btnHome.addEventListener('click', handleHomeClick);
@@ -459,6 +457,26 @@ class AshtavadhanamApp {
       });
     }
 
+  }
+
+  /* ================= RETURN TO MAIN LANDING PAGE ================= */
+  returnToLandingPage() {
+    try {
+      if (window.Player && typeof window.Player.pause === 'function') {
+        window.Player.pause();
+      }
+    } catch(err) {
+      console.warn('Player pause on home return:', err);
+    }
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    }
+    if (this.navDrawer) this.navDrawer.classList.remove('open');
+    if (this.appShell) this.appShell.classList.add('hidden');
+    if (this.splashGateway) this.splashGateway.classList.remove('hidden');
+    if (this.openingVideoStage) this.openingVideoStage.classList.add('hidden');
+    if (this.openingTitleStage) this.openingTitleStage.classList.remove('hidden');
+    window.scrollTo(0, 0);
   }
 
   /* ================= EXIT CONFIRMATION CONTROLLER (exit.dxr equivalent) ================= */
