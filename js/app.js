@@ -645,6 +645,18 @@ class AshtavadhanamApp {
     const contentEl = document.getElementById('content-avadhanaKala');
     const indEl = document.getElementById('avadhana-page-indicator');
 
+    const avadhanaTitlesSa = [
+      'प्रथमः परिच्छेदः • अवधानस्वरूपम्',
+      'द्वितीयः परिच्छेदः • अवधानस्येतिहासः',
+      'तृतीयः परिच्छेदः • अष्टावधानाङ्गानि',
+      'चतुर्थः परिच्छेदः • निषिद्धाक्षरी',
+      'पञ्चमः परिच्छेदः • समस्यापूर्तिः',
+      'षष्ठः परिच्छेदः • दत्तपदी',
+      'सप्तमः परिच्छेदः • सङ्ख्यावलोकनानि'
+    ];
+    const titleSaEl = document.getElementById('avadhana-chapter-title-sa');
+    if (titleSaEl) titleSaEl.textContent = avadhanaTitlesSa[index] || '';
+
     if (imgEl) imgEl.src = ch.canvas;
     if (capEl) capEl.textContent = `Original Director Canvas: ${ch.canvas.split('/').pop()} • Chapter ${ch.chapter} of 7`;
     if (titleEl) titleEl.textContent = ch.title;
@@ -700,8 +712,19 @@ class AshtavadhanamApp {
     const imgEl = document.getElementById('concentration-canvas-img');
     const capEl = document.getElementById('concentration-canvas-caption');
     const titleEl = document.getElementById('concentration-chapter-title');
+    const titleSaEl = document.getElementById('concentration-chapter-title-sa');
     const contentEl = document.getElementById('content-concentration');
     const indEl = document.getElementById('concentration-page-indicator');
+
+    const concentrationTitlesSa = [
+      'प्रथमः पृष्ठः • धारणास्वरूपम्',
+      'द्वितीयः पृष्ठः • एकाग्रता',
+      'तृतीयः पृष्ठः • अभ्यासयोगः',
+      'चतुर्थः पृष्ठः • मनःसंयमः',
+      'पञ्चमः पृष्ठः • स्मरणशक्तिः',
+      'षष्ठः पृष्ठः • फलश्रुतिः'
+    ];
+    if (titleSaEl) titleSaEl.textContent = concentrationTitlesSa[index] || '';
 
     if (imgEl) imgEl.src = pg.canvas;
     if (capEl) capEl.textContent = `Original Director Canvas: ${pg.canvas.split('/').pop()} • Page ${pg.page} of 6`;

@@ -309,7 +309,7 @@ button {
   top: 0;
   left: 0;
   bottom: 0;
-  width: min(300px, 85vw);
+  width: min(270px, 85vw);
   background: #17110c;
   border-right: 1px solid var(--border-subtle);
   z-index: 1000;
@@ -495,7 +495,7 @@ button {
     top: var(--header-height);
     left: 0;
     bottom: var(--player-height);
-    width: 290px;
+    width: 270px;
     transform: translateX(0) !important;
     box-shadow: 3px 0 20px rgba(0, 0, 0, 0.45);
     z-index: 100;
@@ -503,8 +503,14 @@ button {
   }
 
   body.sidebar-docked .main-content {
-    margin-left: 290px;
-    width: calc(100% - 290px);
+    margin-left: 270px;
+    width: calc(100% - 270px);
+    max-width: none !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 16px 28px;
     transition: margin-left 0.3s cubic-bezier(0.16, 1, 0.3, 1), width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
@@ -516,6 +522,10 @@ button {
   body.sidebar-collapsed .main-content {
     margin-left: 0 !important;
     width: 100% !important;
+    max-width: none !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .sidebar-toggle-btn {
@@ -534,18 +544,26 @@ button {
 /* ================= MAIN CONTENT & SECTIONS ================= */
 .main-content {
   flex: 1;
-  max-width: 1240px;
   width: 100%;
   margin: 0 auto;
-  padding: 16px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .app-section {
   display: none;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
 }
 
 .app-section.active {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* ROUND SELECTOR PILLS */
@@ -1364,11 +1382,34 @@ button {
   gap: 16px;
 }
 
+.chapter-heading-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
 .chapter-heading {
   font-family: var(--font-serif);
   font-size: clamp(1.2rem, 3vw, 1.6rem);
   color: var(--accent-gold);
-  margin-bottom: 8px;
+  line-height: 1.25;
+}
+
+.chapter-heading-sa {
+  font-family: var(--font-devanagari);
+  font-size: clamp(1.05rem, 2.2vw, 1.28rem);
+  font-weight: 700;
+  color: #ffde99;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+}
+
+.treatise-content p {
+  color: #f5ede2;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  margin-bottom: 14px;
 }
 
 .treatise-footer-nav {

@@ -79,5 +79,12 @@ class TestUIRefinements(unittest.TestCase):
         self.assertIn('.speaker-seal', self.player_css)
         self.assertIn('〔 ${speakerInfo.name} 〕', self.app_js)
 
+    def test_refinement_8_workspace_centering_and_treatise(self):
+        """Centering in workspace and treatise contrast / Sanskrit titles"""
+        self.assertIn('align-items: center', self.main_css)
+        self.assertIn('avadhana-chapter-title-sa', self.html)
+        self.assertIn('concentration-chapter-title-sa', self.html)
+        self.assertIn('avadhanaTitlesSa', self.app_js)
+
 if __name__ == '__main__':
     unittest.main()
