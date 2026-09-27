@@ -1329,7 +1329,19 @@ class AshtavadhanamApp {
 
   registerServiceWorker() {
     if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
-      navigator.serviceWorker.register('sw.js').catch(e => {
+      navigator.serviceWorker.register('sw.js').then((registration) => {
+        // Proactively check for new sw.js updates on every load
+        registration.update().catch(() => {});
+
+        // Automatically reload client when new service worker takes over
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (!refreshing) {
+            refreshing = true;
+            window.location.reload();
+          }
+        });
+      }).catch(e => {
         console.log('SW registration error:', e);
       });
     }

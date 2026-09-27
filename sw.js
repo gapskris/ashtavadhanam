@@ -10,7 +10,7 @@
  * 4. AUDIO: Cached at runtime only upon receiving a complete 200 OK response.
  */
 
-const CORE_CACHE_NAME = 'ashtavadhanam-core-v1.1.3';
+const CORE_CACHE_NAME = 'ashtavadhanam-core-v1.2.0';
 const MEDIA_CACHE_NAME = 'ashtavadhanam-media-v1.1.0';
 
 // Core Application Shell assets (~2.5 MB total)
@@ -71,6 +71,13 @@ self.addEventListener('activate', (event) => {
       return self.clients.claim();
     })
   );
+});
+
+// MESSAGE: Allow clients to command service worker to skip waiting
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });
 
 // FETCH: Conservative routing with range-request and video safety
@@ -137,13 +144,11 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 6. CORE SHELL (HTML, CSS, JS, JSON): Cache-first with network fallback
+  // 6. CORE SHELL (HTML, CSS, JS, JSON): Network-First with Cache Fallback
+  // Guarantees online users always receive the latest commit, while preserving instant offline availability
   event.respondWith(
-    caches.match(request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      return fetch(request).then((networkResponse) => {
+    fetch(request)
+      .then((networkResponse) => {
         if (networkResponse && networkResponse.status === 200) {
           const responseClone = networkResponse.clone();
           caches.open(CORE_CACHE_NAME).then((cache) => {
@@ -151,7 +156,10 @@ self.addEventListener('fetch', (event) => {
           });
         }
         return networkResponse;
-      });
-    })
+      })
+      .catch(() => {
+        // Offline fallback to cached shell
+        return caches.match(request);
+      })
   );
 });
