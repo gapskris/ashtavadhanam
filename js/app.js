@@ -191,6 +191,7 @@ class AshtavadhanamApp {
 
     this.registerServiceWorker();
     this.initPWAInstallPrompt();
+    this.initTempleChimes();
   }
 
   /* ================= AUTHENTIC OPENING SEQUENCE CONTROLLER ================= */
@@ -837,6 +838,10 @@ class AshtavadhanamApp {
     document.querySelectorAll('.nav-link').forEach(link => {
       link.classList.toggle('active', link.dataset.section === sectionId);
     });
+
+    if (sectionId === 'avadhanaKala' || sectionId === 'concentration') {
+      this.playTempleChime();
+    }
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -1384,6 +1389,71 @@ class AshtavadhanamApp {
     if (isStandalone) return;
     if (this.btnInstallHeader) this.btnInstallHeader.classList.remove('hidden');
     if (this.btnInstallDrawer) this.btnInstallDrawer.classList.remove('hidden');
+  }
+
+  /* ================= DIRECTOR LEGACY TEMPLE BELL CHIMES ================= */
+  initTempleChimes() {
+    this.chimesEnabled = localStorage.getItem('ashtavadhanam_chimes_enabled') !== 'false';
+    try {
+      this.templeChimeAudio = new Audio();
+      const canM4A = this.templeChimeAudio.canPlayType('audio/mp4; codecs="mp4a.40.2"');
+      this.templeChimeAudio.src = canM4A ? 'assets/audio/special/track_01.m4a' : 'assets/audio/special/track_01.mp3';
+      this.templeChimeAudio.volume = 0.35;
+      this.templeChimeAudio.preload = 'auto';
+    } catch(err) {
+      console.warn('Temple chime init:', err);
+    }
+
+    const btnDrawerChimes = document.getElementById('btn-toggle-chimes');
+    const btnPlayerChimes = document.getElementById('btn-player-chimes');
+
+    const handleToggle = (e) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      this.toggleTempleChimes();
+    };
+
+    if (btnDrawerChimes) btnDrawerChimes.addEventListener('click', handleToggle);
+    if (btnPlayerChimes) btnPlayerChimes.addEventListener('click', handleToggle);
+
+    this.updateChimesUI();
+  }
+
+  playTempleChime(force = false) {
+    if ((!this.chimesEnabled && !force) || !this.templeChimeAudio) return;
+    try {
+      this.templeChimeAudio.currentTime = 0;
+      const p = this.templeChimeAudio.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(() => {});
+      }
+    } catch(err) {
+      console.warn('Temple chime play:', err);
+    }
+  }
+
+  toggleTempleChimes() {
+    this.chimesEnabled = !this.chimesEnabled;
+    localStorage.setItem('ashtavadhanam_chimes_enabled', this.chimesEnabled ? 'true' : 'false');
+    this.updateChimesUI();
+    if (this.chimesEnabled) {
+      this.playTempleChime(true);
+    }
+  }
+
+  updateChimesUI() {
+    const icon = document.getElementById('chimes-icon');
+    const label = document.getElementById('chimes-primary-label');
+    const playerBtn = document.getElementById('btn-player-chimes');
+
+    if (icon) icon.textContent = this.chimesEnabled ? '🔔' : '🔕';
+    if (label) label.textContent = this.chimesEnabled ? 'Temple Bell Chimes: ON' : 'Temple Bell Chimes: OFF';
+    if (playerBtn) {
+      playerBtn.textContent = this.chimesEnabled ? '🔔' : '🔕';
+      playerBtn.title = this.chimesEnabled ? 'Temple Bell Chimes: ON (Click to Mute)' : 'Temple Bell Chimes: OFF (Click to Enable)';
+    }
   }
 
   registerServiceWorker() {

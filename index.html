@@ -35,6 +35,9 @@
       <div class="opening-stage-inner">
         <!-- Sacred Spiritual Inscription Crest -->
         <div class="opening-spiritual-crest">
+          <div class="gateway-emblem-wrapper">
+            <img src="assets/icons/icon-192.png" alt="Ashtavadhanam Royal Scholar Emblem" class="gateway-emblem-img">
+          </div>
           <div class="crest-mantra">॥ ॐ श्री अरविन्दाय नमः ॥</div>
           <div class="crest-subtext">✦ वाग् वै ब्रह्म • Speech is the Supreme Divine ✦</div>
         </div>
@@ -309,6 +312,15 @@
               </button>
             </li>
             <li>
+              <button class="nav-link nav-link-chimes" id="btn-toggle-chimes" title="Toggle Temple Bell Chimes on navigation & completion">
+                <span class="nav-icon" id="chimes-icon">🔔</span>
+                <span class="nav-text">
+                  <span class="text-primary-label" id="chimes-primary-label">Temple Bell Chimes: ON</span>
+                  <span class="text-secondary-label">मन्दिर-घण्टानादः</span>
+                </span>
+              </button>
+            </li>
+            <li>
               <button class="nav-link nav-link-exit" id="btn-exit">
                 <span class="nav-icon">🚪</span>
                 <span class="nav-text">
@@ -533,6 +545,7 @@
 
       <div class="player-right">
         <span class="codec-indicator" id="codec-indicator">AAC 192k</span>
+        <button id="btn-player-chimes" class="icon-btn" title="Toggle Temple Bell Chimes (घण्टानादः)" aria-label="Temple Chimes">🔔</button>
         <button id="btn-mute" class="icon-btn" title="Mute/Unmute">🔊</button>
       </div>
     </footer>

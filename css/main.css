@@ -537,6 +537,16 @@ button {
   font-weight: 600;
 }
 
+.nav-link-chimes {
+  border-left: 3px solid rgba(229, 169, 60, 0.4);
+  background: rgba(229, 169, 60, 0.05);
+}
+
+.nav-link-chimes:hover {
+  background: rgba(229, 169, 60, 0.18);
+  border-left-color: var(--accent-gold);
+}
+
 @keyframes pulse-gold-subtle {
   0%, 100% {
     box-shadow: 0 0 6px rgba(229, 169, 60, 0.3);
@@ -1109,6 +1119,49 @@ button {
   text-align: center;
   margin-bottom: 18px;
   animation: fadeIn 0.8s ease-out;
+}
+
+/* Gateway Top-Center Royal Scholar Emblem */
+.gateway-emblem-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.gateway-emblem-img {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-gold);
+  box-shadow: 
+    0 0 25px rgba(229, 169, 60, 0.5),
+    inset 0 0 10px rgba(0, 0, 0, 0.4);
+  background: radial-gradient(circle, #fbe3b4 0%, #d49838 100%);
+  padding: 2px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  animation: emblem-glow-pulse 3.5s infinite ease-in-out;
+}
+
+.gateway-emblem-img:hover {
+  transform: scale(1.08) rotate(2deg);
+  box-shadow: 0 0 35px rgba(229, 169, 60, 0.85);
+}
+
+@keyframes emblem-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 18px rgba(229, 169, 60, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 34px rgba(229, 169, 60, 0.8);
+  }
+}
+
+@media (max-width: 640px) {
+  .gateway-emblem-img {
+    width: 72px;
+    height: 72px;
+  }
 }
 
 .crest-mantra {

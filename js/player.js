@@ -183,9 +183,15 @@ class AshtavadhanamPlayer {
   playNext() {
     if (this.currentIndex + 1 < this.playlist.length) {
       this.playClip(this.currentIndex + 1);
-    } else if (window.App && window.App.currentPageIndex + 1 < 25) {
-      // Auto-advance to next page
-      window.App.navigateToPage(window.App.currentPageIndex + 2, true);
+    } else {
+      // Completed all recitations in active round: sound temple chime
+      if (window.App && typeof window.App.playTempleChime === 'function') {
+        window.App.playTempleChime();
+      }
+      if (window.App && window.App.currentPageIndex + 1 < 25) {
+        // Auto-advance to next page
+        window.App.navigateToPage(window.App.currentPageIndex + 2, true);
+      }
     }
   }
 
