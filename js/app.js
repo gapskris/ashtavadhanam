@@ -88,6 +88,108 @@ class AshtavadhanamApp {
     this.btnCloseNav.addEventListener('click', closeDrawerMobile);
     if (backdropEl) backdropEl.addEventListener('click', closeDrawerMobile);
 
+    // Right Tools & Settings Drawer (Symmetrical to Left Nav Drawer)
+    const toolsDrawer = document.getElementById('tools-drawer');
+    const toolsBackdrop = document.getElementById('tools-drawer-backdrop');
+    const btnToggleTools = document.getElementById('btn-toggle-tools');
+    const btnCloseTools = document.getElementById('btn-close-tools');
+
+    const openToolsDrawer = () => {
+      if (toolsDrawer) toolsDrawer.classList.add('open');
+      if (toolsBackdrop) {
+        toolsBackdrop.classList.remove('hidden');
+        toolsBackdrop.classList.add('active');
+      }
+    };
+
+    const closeToolsDrawer = () => {
+      if (toolsDrawer) toolsDrawer.classList.remove('open');
+      if (toolsBackdrop) {
+        toolsBackdrop.classList.remove('active');
+        toolsBackdrop.classList.add('hidden');
+      }
+    };
+
+    if (btnToggleTools) btnToggleTools.addEventListener('click', openToolsDrawer);
+    if (btnCloseTools) btnCloseTools.addEventListener('click', closeToolsDrawer);
+    if (toolsBackdrop) toolsBackdrop.addEventListener('click', closeToolsDrawer);
+
+    // Wire individual tool items
+    const toolSearch = document.getElementById('tool-search');
+    if (toolSearch) {
+      toolSearch.addEventListener('click', () => {
+        closeToolsDrawer();
+        if (this.search) this.search.open();
+      });
+    }
+
+    const toolInstall = document.getElementById('tool-install');
+    if (toolInstall) {
+      toolInstall.addEventListener('click', () => {
+        closeToolsDrawer();
+        if (this.deferredInstallPrompt) {
+          this.deferredInstallPrompt.prompt();
+          this.deferredInstallPrompt.userChoice.then(() => {
+            this.deferredInstallPrompt = null;
+          });
+        } else {
+          alert('Ashtavadhanam App is ready for offline install.\n• On Chrome/Android: Tap 3-dots ⋮ > Add to Home screen\n• On iOS Safari: Tap Share ⎙ > Add to Home Screen');
+        }
+      });
+    }
+
+    const toolTv = document.getElementById('tool-tv-mode');
+    if (toolTv) {
+      toolTv.addEventListener('click', () => {
+        closeToolsDrawer();
+        if (window.toggleTvMode) window.toggleTvMode();
+      });
+    }
+
+    const toolFullscreen = document.getElementById('tool-fullscreen');
+    if (toolFullscreen) {
+      toolFullscreen.addEventListener('click', () => {
+        closeToolsDrawer();
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(e => console.log(e));
+        } else {
+          document.exitFullscreen().catch(e => console.log(e));
+        }
+      });
+    }
+
+    const toolHelp = document.getElementById('tool-help');
+    if (toolHelp) {
+      toolHelp.addEventListener('click', () => {
+        closeToolsDrawer();
+        this.navigateToSection('help');
+      });
+    }
+
+    const toolChimes = document.getElementById('tool-chimes');
+    const toolChimesStatus = document.getElementById('tool-chimes-status');
+    const updateChimesDisplay = () => {
+      const enabled = localStorage.getItem('ashtavadhanam_chimes_enabled') !== 'false';
+      if (toolChimesStatus) {
+        toolChimesStatus.textContent = enabled ? 'ON' : 'OFF';
+        toolChimesStatus.classList.toggle('active', enabled);
+      }
+    };
+    updateChimesDisplay();
+
+    if (toolChimes) {
+      toolChimes.addEventListener('click', () => {
+        const btnToggleChimes = document.getElementById('btn-toggle-chimes');
+        if (btnToggleChimes) {
+          btnToggleChimes.click();
+        } else {
+          const current = localStorage.getItem('ashtavadhanam_chimes_enabled') !== 'false';
+          localStorage.setItem('ashtavadhanam_chimes_enabled', !current ? 'true' : 'false');
+        }
+        updateChimesDisplay();
+      });
+    }
+
     if (btnCollapseSidebar) {
       btnCollapseSidebar.addEventListener('click', () => {
         document.body.classList.add('sidebar-collapsed');

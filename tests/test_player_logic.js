@@ -42,6 +42,9 @@ global.document = {
       addEventListener: () => {}
     };
   },
+  querySelector: () => ({
+    classList: { add: () => {}, remove: () => {}, toggle: () => {} }
+  }),
   querySelectorAll: () => []
 };
 

@@ -144,7 +144,7 @@ def run_mobile_test_suite():
         page.wait_for_selector("#app-shell", state="visible")
         
         # Header buttons
-        for btn_id in ["#btn-toggle-menu", "#btn-home", "#btn-search", "#btn-help", "#btn-tv-mode", "#btn-fullscreen"]:
+        for btn_id in ["#btn-toggle-menu", "#btn-home", "#btn-toggle-tools", "#btn-search", "#btn-help", "#btn-tv-mode", "#btn-fullscreen"]:
             btn = page.locator(btn_id)
             if btn.is_visible():
                 box = btn.bounding_box()
@@ -335,10 +335,17 @@ def run_mobile_test_suite():
         # 4. SEARCH MODAL & QUERY EXECUTION
         # -------------------------------------------------------------
         print("\n=== TEST GROUP 4: SEARCH MODAL & INTERACTION ===")
-        page.locator("#btn-search").click()
+        if page.locator("#btn-search").is_visible():
+            page.locator("#btn-search").click()
+        else:
+            page.locator("#btn-toggle-tools").click()
+            page.wait_for_timeout(300)
+            tools_open = page.locator("#tools-drawer").is_visible()
+            test("Tools Drawer", "Right tools button opens Tools & Settings Drawer", tools_open)
+            page.locator("#tool-search").click()
         page.wait_for_timeout(300)
         search_modal_open = page.locator("#search-modal").is_visible()
-        test("Search Modal", "Search icon in header opens Search Modal", search_modal_open)
+        test("Search Modal", "Search trigger opens Search Modal", search_modal_open)
 
         search_input = page.locator("#search-input")
         search_input.fill("अरविन्द")

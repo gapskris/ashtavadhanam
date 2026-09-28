@@ -89,6 +89,31 @@ class AshtavadhanamPlayer {
     if (this.videoModalBackdrop) {
       this.videoModalBackdrop.addEventListener('click', () => this.closeVideoModal());
     }
+
+    // Player Minimize & Restore
+    this.playerBar = document.getElementById('player-bar');
+    this.btnMinimize = document.getElementById('btn-minimize-player');
+    this.btnRestore = document.getElementById('btn-restore-player');
+
+    if (this.btnMinimize && this.playerBar) {
+      this.btnMinimize.addEventListener('click', () => {
+        this.playerBar.classList.remove('active-expanded');
+        this.playerBar.classList.add('idle-collapsed');
+        if (this.btnRestore) this.btnRestore.classList.remove('hidden');
+        const appShell = typeof document.querySelector === 'function' ? document.querySelector('.app-shell') : null;
+        if (appShell) appShell.classList.remove('has-active-player');
+      });
+    }
+
+    if (this.btnRestore && this.playerBar) {
+      this.btnRestore.addEventListener('click', () => {
+        this.playerBar.classList.remove('idle-collapsed');
+        this.playerBar.classList.add('active-expanded');
+        this.btnRestore.classList.add('hidden');
+        const appShell = typeof document.querySelector === 'function' ? document.querySelector('.app-shell') : null;
+        if (appShell) appShell.classList.add('has-active-player');
+      });
+    }
   }
 
   /**
@@ -155,6 +180,15 @@ class AshtavadhanamPlayer {
 
     this.currentIndex = index;
     this.audio.src = targetSrc;
+    
+    // Auto-expand player bar when track is played
+    if (this.playerBar) {
+      this.playerBar.classList.remove('idle-collapsed');
+      this.playerBar.classList.add('active-expanded');
+      if (this.btnRestore) this.btnRestore.classList.add('hidden');
+      const appShell = typeof document.querySelector === 'function' ? document.querySelector('.app-shell') : null;
+      if (appShell) appShell.classList.add('has-active-player');
+    }
     
     // Update labels
     this.clipTitleEl.textContent = clip.title || clip.id || `Recitation ${index + 1}`;

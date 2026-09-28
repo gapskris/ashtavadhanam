@@ -358,6 +358,49 @@ body.mode-bilingual .text-english {
   box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(16px);
   gap: 16px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.app-player-bar.idle-collapsed {
+  transform: translateY(115%);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.app-player-bar.active-expanded {
+  transform: translateY(0);
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.player-minimize-btn {
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.player-minimize-btn:hover {
+  color: var(--accent-gold);
+  transform: translateY(2px);
+}
+
+.player-restore-badge {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 999;
+  background: rgba(22, 17, 13, 0.96);
+  border: 1.5px solid var(--accent-gold);
+  color: var(--accent-gold);
+  padding: 8px 16px;
+  border-radius: 24px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.7), 0 0 15px rgba(229, 169, 60, 0.4);
+  cursor: pointer;
+  animation: pulse-gold-subtle 2.5s infinite ease-in-out;
 }
 
 .player-left {
@@ -508,7 +551,7 @@ body.mode-bilingual .text-english {
 /* Mobile Devices (< 768px) */
 @media (max-width: 768px) {
   :root {
-    --player-height: 110px;
+    --player-height: 130px;
   }
   
   .app-player-bar {
