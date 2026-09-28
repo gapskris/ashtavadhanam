@@ -33,42 +33,53 @@ The **v2 Evolution** builds upon this immutable foundation to transform the appl
 
 ### Pillar 1: Organic Bhojpatra / Palm-Leaf Micro-Texture Engine
 - **Objective**: Eliminate modern flat-screen digital sterility; replicate the tactile grain of aged Himalayan birch-bark (*Bhojpatra*) and South Indian talipot palm-leaf (*Tālapatra*).
-- **Implementation**:
-  - CSS-based SVG noise synthesis with subtle parchment fiber grain overlay.
-  - Multiplied at `mix-blend-mode: overlay` with `opacity: 0.045` so it does not degrade text legibility or increase network payload.
-  - Zero heavy raster bitmaps; computed completely on the GPU via CSS `feTurbulence` filter.
+- **Core Preservation Rule**:
+  - The authentic 1997 CD-ROM backdrop artwork (`eightfold 01-25.jpg` oil lamps, headers, and calligraphic watermarks) remains **100% untouched and sacred**.
+- **Implementation & Scope**:
+  - Applied to the **surface finish of the Sanskrit recitation card containers** replacing flat solid cream (`#fffdf8`) with an authentic, organic tactile parchment finish.
+  - CSS-based SVG noise synthesis (`feTurbulence` with anisotropic horizontal frequencies for birch bark, longitudinal frequencies for palm leaf).
+  - Multiplied at `mix-blend-mode: multiply` / `overlay` with subtle `opacity: 0.045 - 0.065`, preserving WCAG AAA text contrast.
+  - Includes a delicate inner double-fillet gold border (`rgba(212, 175, 55, 0.25)`).
+  - Toggleable in Settings (`Classic Flat` vs `Tactile Bhojpatra`).
+  - *Note*: Full manuscript folio card layouts are reserved for Pillar 10 (Printable Study Folios & PDF Export).
 
 ### Pillar 2: Animated Aṣṭadala Padma (8-Petaled Lotus) Sacred Watermark
 - **Objective**: Symbolize the eight simultaneous cognitive facets of *Aṣṭāvadhānam* (Nishedhakshari, Samasya, Vyastakshari, Dattapadi, Chitrakavya, Pushpaganan, Ashukavita, and Aprastuta-prasangam).
-- **Implementation**:
-  - High-precision SVG golden geometric mandala centered behind the main performance stage.
-  - Slow, meditative 120-second rotational animation (`transform: rotate(360deg)` with `animation-timing-function: linear`).
-  - Subtle breathing glow pulsing on audio play.
+- **Desktop / Widescreen Placement**:
+  - **In-Canvas Placement**: Hovers in the natural open space on the left of the 1997 canvas directly above the sacred oil lamps, radiating upward like a divine aura of concentration without obstructing text.
+  - **Widescreen Flanking Symmetrical Harmony**: When viewed on wide desktop monitors, the left void features the 8-Petaled Aṣṭadala Padma rotating meditatively ($120\text{s}$ period), while the right void features the complementary 12-Petaled Sri Aurobindo Society Lotus (or the Live Scholar Panel).
+- **Mobile Screen Adaptation**:
+  - Because vertical mobile displays have zero side gutters, the Aṣṭadala Padma adapts into:
+    1. **Spinning Player Disc Emblem**: A rotating sacred lotus avatar inside the bottom floating audio player bar next to the recitation title (`Page 1 — Turn 1`), spinning gently while recitation audio plays (analogous to spinning vinyl/mandala discs in modern music apps).
+    2. **Stage Watermark**: A faint $6\%$ opacity background watermark behind the canvas.
 
 ### Pillar 3: Sanskrit Chandas (Meter) & Sandhi Breakdown Inspector
 - **Objective**: Assist scholars, university students, and lovers of Sanskrit poetry in deciphering classical metrical patterns.
-- **Implementation**:
-  - Data expansion in `v2/data_v2.json`:
-    - Metrical classification for every verse: *Śārdūlavikrīḍita* (19 syllables), *Mandākrāntā* (17 syllables), *Vasantatilakā* (14 syllables), *Anuṣṭubh* (8×4), *Upajāti* (11 syllables).
+- **Desktop Widescreen Mode**:
+  - Uses the right flanking void as a persistent **Live Scholar Workstation**, displaying the meter, syllable count, Laghu/Guru rhythm notation, and Sandhi split of the active verse without covering the central 1997 stage.
+- **Mobile Mode (Pull-Up Bottom Sheet)**:
+  - Each recitation card carries a compact, tap-friendly pill: `[📜 अनुष्टुभ् (Meter) ▾]`.
+  - Tapping this pill slides up a sleek **Mobile Bottom Sheet Drawer** showing:
+    - Metrical classification: *Śārdūlavikrīḍita* (19 syllables), *Mandākrāntā* (17), *Vasantatilakā* (14), *Anuṣṭubh* (8×4), *Upajāti* (11).
     - Laghu/Guru ($\smallsmile / \text{—}$) rhythm notation for each poetic quarter (*Pāda*).
-  - Floating pill on recitation cards: `[📜 Meter: Śārdūlavikrīḍita]` $\rightarrow$ taps to reveal the syllabic scan and Sandhi splits.
+    - Word-by-word Sandhi splits.
+  - Tapping outside or ✕ dismisses it immediately, restoring full-screen reading.
 
 ### Pillar 4: Interactive Sanskrit Glossary & Lore Tooltips
 - **Objective**: Explain rare literary techniques, historical allusions, and poetic idioms on tap.
-- **Implementation**:
-  - Micro-tooltips integrated into Devanagari text for key terms.
-  - Interactive cards explaining:
-    - *Niṣiddhākṣarī*: The forbidden-letter challenge.
-    - *Samasyā-pūraṇam*: Solving the paradoxical poetic riddle.
-    - *Dattapadī*: Composing verses using four unrelated words given by the interrogator.
-    - *Aprastuta-prasaṅgam*: The witty distraction clown attempting to break the Avadhani's concentration.
+- **Desktop Implementation**:
+  - Integrated into the right companion panel for instant contextual reading.
+- **Mobile Implementation**:
+  - Inline Sanskrit terms (*Niṣiddhākṣarī*, *Samasyā*, *Dattapadī*, *Aprastuta-prasaṅgam*) feature subtle dotted underlays; tapping reveals an instant micro-tooltip bottom sheet.
+  - Full alphabetical glossary index accessible via a dedicated entry in the top-right **Tools & Settings Drawer (⋮)**.
 
 ### Pillar 5: Variable Audio Speed Playback Engine (`0.75×`, `1.0×`, `1.25×`)
 - **Objective**: Enable students to slow down rapid extempore poetic recitations to study pronunciation and Sandhi transitions.
-- **Implementation**:
-  - Integrated into the persistent bottom player bar (`#player-bar`).
+- **Implementation (Desktop & Mobile Universal)**:
+  - Built directly into the **Floating Audio Player Bar** (`#player-bar`) as an instant `⚡ 1.0×` pill button.
   - Preserves pitch using HTML5 Audio `preservesPitch = true`.
-  - Step selector: `[ 0.75× | 1.0× | 1.25× ]` with instant state feedback.
+  - Single tap cycles sequentially: `1.0×` $\rightarrow$ `0.75×` (slow chanting study) $\rightarrow$ `1.25×` (rapid review) $\rightarrow$ `1.0×`.
+  - Accessible on mobile with a single thumb tap without leaving the recitation view.
 
 ### Pillar 6: Real-time Audio Waveform Frequency Visualizer
 - **Objective**: Bring voice recitations visually to life.
@@ -111,6 +122,20 @@ The **v2 Evolution** builds upon this immutable foundation to transform the appl
     - Round title, interrogator (*Pṛcchaka*), and poetic art.
     - Sanskrit Devanagari verse in classical calligraphic font.
     - English IAST translation and metrical analysis.
+
+---
+
+## 2.1 Multi-Device Responsive Adaptation Matrix (Desktop vs. Mobile)
+
+To resolve screen clutter and ensure 100% feature accessibility across both desktop monitors and vertical mobile screens:
+
+| Feature / Pillar | Desktop Widescreen Display (≥ 1024px) | Mobile Portrait Phone (< 600px) |
+|:---|:---|:---|
+| **Pillar 1: Bhojpatra Micro-Texture** | Organic parchment grain on card containers + subtle aged vignette | Identical organic grain on card containers with zero legibility degradation |
+| **Pillar 2: Aṣṭadala Padma Lotus** | Open space above oil lamps on canvas OR Left Flanking Space (paired with Sri Aurobindo Lotus on Right Flank) | Spinning sacred lotus disc avatar inside the Floating Audio Player Bar next to track title + 6% background watermark |
+| **Pillar 3: Sanskrit Meter (*Chandas*)** | Persistent Right Companion Workstation with real-time Laghu/Guru scan & Sandhi splits | Tap-friendly `[📜 Meter ▾]` pill on each card $\rightarrow$ slides up a sleek Pull-Up Bottom Sheet Drawer |
+| **Pillar 4: Glossary & Lore** | Persistent Right Companion Panel card | Inline term tap tooltip bottom-sheet + complete glossary in top-right Tools Drawer (⋮) |
+| **Pillar 5: Audio Speed Control** | Instant speed selector in audio player bar | Single-thumb `⚡ 1.0×` button in floating audio player bar cycling `0.75×`, `1.0×`, `1.25×` |
 
 ---
 
