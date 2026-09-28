@@ -44,6 +44,13 @@ class AshtavadhanamApp {
   }
 
   init() {
+    // Global Escape key listener to dismiss all modals & drawers cleanly
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        this.hideAllModals();
+      }
+    });
+
     // Opening Sequence
     this.initOpeningSequence();
 
@@ -375,6 +382,7 @@ class AshtavadhanamApp {
       if (this.appShell) this.appShell.classList.remove('hidden');
       this.navigateToPage(1, false);
     };
+    this.enterApp = enterApp;
 
     if (this.btnEnterDirect) {
       this.btnEnterDirect.addEventListener('click', enterApp);
@@ -1647,19 +1655,44 @@ class AshtavadhanamApp {
     }
   }
 
+  hideAllModals() {
+    ['video-modal', 'search-modal', 'exit-modal'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('hidden');
+    });
+    const video = document.getElementById('modal-video-player');
+    if (video) video.pause();
+    const navDrawer = document.getElementById('nav-drawer');
+    if (navDrawer) navDrawer.classList.remove('open');
+    const navBackdrop = document.getElementById('nav-drawer-backdrop');
+    if (navBackdrop) navBackdrop.classList.remove('active');
+    const toolsDrawer = document.getElementById('tools-drawer');
+    if (toolsDrawer) toolsDrawer.classList.remove('open');
+    const toolsBackdrop = document.getElementById('tools-drawer-backdrop');
+    if (toolsBackdrop) toolsBackdrop.classList.add('hidden');
+  }
+
+  toggleTvMode(forceState) {
+    if (typeof window.toggleTvMode === 'function') {
+      return window.toggleTvMode(forceState);
+    }
+  }
+
   registerServiceWorker() {
     if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
       navigator.serviceWorker.register('sw.js').then((registration) => {
         // Proactively check for new sw.js updates on every load
         registration.update().catch(() => {});
 
-        // Automatically reload client when new service worker takes over
+        // Automatically reload client when new service worker takes over an existing installation
+        let hadController = Boolean(navigator.serviceWorker.controller);
         let refreshing = false;
         navigator.serviceWorker.addEventListener('controllerchange', () => {
-          if (!refreshing) {
+          if (hadController && !refreshing) {
             refreshing = true;
             window.location.reload();
           }
+          hadController = true;
         });
       }).catch(e => {
         console.log('SW registration error:', e);

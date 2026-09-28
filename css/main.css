@@ -304,14 +304,17 @@ button {
 }
 
 .view-btn {
-  padding: 6px 14px;
-  min-height: 36px;
+  padding: 8px 16px;
+  min-height: 40px;
   border-radius: 20px;
   font-size: clamp(0.75rem, 2vw, 0.85rem);
   font-weight: 600;
   color: var(--text-secondary);
   transition: var(--transition);
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .view-btn.active {
