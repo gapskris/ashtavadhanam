@@ -81,20 +81,16 @@ The **v2 Evolution** builds upon this immutable foundation to transform the appl
   - Single tap cycles sequentially: `1.0×` $\rightarrow$ `0.75×` (slow chanting study) $\rightarrow$ `1.25×` (rapid review) $\rightarrow$ `1.0×`.
   - Accessible on mobile with a single thumb tap without leaving the recitation view.
 
-### Pillar 6: Real-time Audio Waveform Frequency Visualizer
-- **Objective**: Bring voice recitations visually to life.
-- **Implementation**:
-  - Utilizes Web Audio API `AudioContext` and `AnalyserNode` (`fftSize = 64`).
-  - Renders 16 golden vertical frequency bars pulsing in real-time inside the player bar badge whenever recitation audio is active.
-  - Gracefully falls back to a CSS pulsing wave if Web Audio is unsupported or restricted by strict browser permissions.
+### Pillar 6: Active Verse Pāda (Karaoke) Highlighting & Auto-Scroll
+- **Objective**: Ensure visitors and students never lose their place during rapid extempore Sanskrit recitations.
+- **Architectural Rationale**: Replaces generic, distracting audio frequency equalizers with genuine poetic value—tracking the 4 quarters (*Pādas*) of the classical verse in sync with the master audio.
+- **Implementation (Desktop & Mobile)**:
+  - **Pāda-by-Pāda Illumination**: As the scholar chants, the exact Sanskrit line illuminates with a warm golden highlight (`background: rgba(212, 175, 55, 0.15); border-left: 3px solid #d4af37`), while the corresponding English translation phrase softly brightens.
+  - **Active Card Golden Aura**: The current recitation card gains an authentic double-fillet gold glow, while non-active cards dim slightly ($80\%$ opacity) to focus attention.
+  - **Smooth Auto-Scroll**: During continuous `"Play All in Page"` playback, automatically calls `card.scrollIntoView({ behavior: 'smooth', block: 'center' })` as each turn begins, keeping the active verse centered without requiring user touch.
+  - **Pāda Progress Badge**: Displays real-time metrical progress (`Line 2 of 4`) in the audio player bar.
 
-### Pillar 7: Active Verse Karaoke Sync & Smooth Auto-Scrolling
-- **Objective**: Ensure visitors never lose their place during multi-verse recitations.
-- **Implementation**:
-  - During continuous `"Play All in Page"` playback, the active recitation card illuminates with a warm gold fillet border.
-  - Smoothly calls `card.scrollIntoView({ behavior: 'smooth', block: 'nearest' })` as each track starts, keeping the spoken Sanskrit verse centered in the viewport.
-
-### Pillar 8: Dual Sanctuary Theme Switcher
+### Pillar 7: Dual Sanctuary Theme Switcher
 - **Themes**:
   1. **Night Sanctuary (Current Default)**:
      - Background: `#120e0b` (Deep obsidian gold).
@@ -106,14 +102,14 @@ The **v2 Evolution** builds upon this immutable foundation to transform the appl
      - Borders: `#c99738` (Antique burnished brass).
      - Optimized for bright daylight reading and high-contrast accessibility.
 
-### Pillar 9: "The Avadhani's Challenge" (Interactive Memory Mini-Game)
+### Pillar 8: "The Avadhani's Challenge" (Interactive Memory Mini-Game)
 - **Objective**: Gamify the cognitive art of concentration; allow visitors to test their own memory against the 1997 scholars!
 - **Game Modes**:
   1. *The Forbidden Letter Game*: In Round 1, can you compose a sentence without using the letter given by the interrogator?
   2. *The 4-Word Dattapadi Memory*: The game gives you 4 words; after 3 distraction questions, can you recall the 4 words in correct order?
   3. *Sound the Bell Counter*: Count the random temple bell rings while answering a poetry quiz!
 
-### Pillar 10: Printable Royal Manuscript Folio Generator (PDF Export)
+### Pillar 9: Printable Royal Manuscript Folio Generator (PDF Export)
 - **Objective**: Enable schools, ashrams, and universities to print authentic study sheets of any round.
 - **Implementation**:
   - Client-side vector folio renderer.
@@ -136,6 +132,7 @@ To resolve screen clutter and ensure 100% feature accessibility across both desk
 | **Pillar 3: Sanskrit Meter (*Chandas*)** | Persistent Right Companion Workstation with real-time Laghu/Guru scan & Sandhi splits | Tap-friendly `[📜 Meter ▾]` pill on each card $\rightarrow$ slides up a sleek Pull-Up Bottom Sheet Drawer |
 | **Pillar 4: Glossary & Lore** | Persistent Right Companion Panel card | Inline term tap tooltip bottom-sheet + complete glossary in top-right Tools Drawer (⋮) |
 | **Pillar 5: Audio Speed Control** | Instant speed selector in audio player bar | Single-thumb `⚡ 1.0×` button in floating audio player bar cycling `0.75×`, `1.0×`, `1.25×` |
+| **Pillar 6: Active Verse Pāda Highlighting** | Golden card aura + real-time line-by-line Pāda illumination synchronized with audio | Real-time line highlight + smooth card auto-scroll centering active verse |
 
 ---
 
