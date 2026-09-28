@@ -1757,6 +1757,15 @@ button {
   opacity: 1;
 }
 
+/* Smooth fluid video-rate dissolve on landing page */
+#landing-visual-frame .title-seq-frame {
+  transition: opacity 0.35s ease-in-out;
+}
+
+#landing-visual-frame .title-seq-frame.fade-reset {
+  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* HARDWARE-ACCELERATED STACKED MOSAIC FRAMES (01, 02, 03) */
 .mosaic-seq-frame {
   position: absolute;

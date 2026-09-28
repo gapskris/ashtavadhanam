@@ -413,11 +413,19 @@ class AshtavadhanamApp {
     // PHASE 2: CULTURAL MOSAIC (03.bmp -> 02.bmp -> 01.bmp) & MONTAGE VIDEO
     const runMontagePhase = () => {
       clearAllTimers();
+      if (this.openingTitleStage) this.openingTitleStage.classList.add('hidden');
+      if (this.openingVideoStage) this.openingVideoStage.classList.remove('hidden');
       if (this.titleContainer) this.titleContainer.classList.add('hidden');
       if (this.mosaicContainer) this.mosaicContainer.classList.remove('hidden');
 
       if (this.btnSkipToMontage) {
         this.btnSkipToMontage.style.display = 'none';
+      }
+
+      // Prime video element inside synchronous click stack
+      if (this.openingMontageVideo) {
+        this.openingMontageVideo.muted = false;
+        this.openingMontageVideo.load();
       }
 
       // Soft fade out of theme audio over 1.2s
@@ -596,7 +604,7 @@ class AshtavadhanamApp {
     };
 
     if (this.btnStartFullExperience) {
-      this.btnStartFullExperience.addEventListener('click', runAuthenticOpening);
+      this.btnStartFullExperience.addEventListener('click', runMontagePhase);
     }
 
     if (this.btnReplayOpening) {
@@ -626,26 +634,33 @@ class AshtavadhanamApp {
 
     if (this.landingFrames.length < 6) return;
 
-    let currentIdx = 0;
-    const advance = () => {
-      const nextIdx = (currentIdx + 1) % this.landingFrames.length;
-      if (nextIdx === 0) {
-        // Reset back to S01
+    let step = 0;
+    const playStep = () => {
+      step = (step + 1) % 6;
+      if (step === 0) {
+        // Seamless crossfade reset: fade out layers 2-6 over 0.9s while frame 1 is already underneath
         this.landingFrames.forEach((f, i) => {
-          if (i === 0) f.classList.add('active');
-          else f.classList.remove('active');
+          if (i > 0) {
+            f.classList.add('fade-reset');
+            f.classList.remove('active');
+          }
         });
+        this.landingTimer = setTimeout(() => {
+          this.landingFrames.forEach(f => f.classList.remove('fade-reset'));
+          this.landingTimer = setTimeout(playStep, 500);
+        }, 900);
+        return;
       } else {
-        // Illuminate next calligraphy stage
-        this.landingFrames[nextIdx].classList.add('active');
+        this.landingFrames[step].classList.add('active');
       }
-      currentIdx = nextIdx;
-      // Hold complete illumination for 3.5s, progressive frames for 1.2s
-      const delay = (currentIdx === 5) ? 3500 : 1200;
-      this.landingTimer = setTimeout(advance, delay);
+
+      // Fast fluid 260ms reveal per stage; 3200ms hold on complete illuminated S06
+      const delay = (step === 5) ? 3200 : 260;
+      this.landingTimer = setTimeout(playStep, delay);
     };
 
-    this.landingTimer = setTimeout(advance, 1200);
+    // Begin fluid reveal after 600ms initial pause on frame 1
+    this.landingTimer = setTimeout(playStep, 600);
   }
 
   stopLandingAnimation() {
