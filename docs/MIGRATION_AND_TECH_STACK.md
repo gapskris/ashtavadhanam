@@ -23,12 +23,14 @@ The application was authored intentionally **without heavy frontend frameworks (
 | **Presentation** | **Semantic HTML5** | Direct standard DOM elements (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<audio>`, `<video>`). Accessible, screen-reader ready, and lightweight. |
 | **Styling & Layout** | **Modular CSS3** | Native CSS Variables (`:root`), Flexbox, CSS Grid, Fluid typography (`clamp()`), and responsive viewports (Mobile, Tablet, Desktop, 4K, 10-Foot Smart TV). |
 | **Application Logic** | **Vanilla ES6+ JavaScript** | Object-Oriented modular controllers (`app.js`, `player.js`, `search.js`, `tv-remote.js`). Zero external libraries or npm dependencies. |
+| **Viewport Engine** | **Autonomous Adaptive Engine** | Real-time mathematical scaling (`updateStageScale`) dynamically fitting 1080px stage geometry to any viewport with zero text clipping. |
 | **Animation Clock** | **`requestAnimationFrame` API** | High-precision 60fps/120fps hardware-synchronized rendering querying `media.currentTime` to eliminate UI jitter. |
 | **Audio Engine** | **Dual High-Fidelity Audio** | **Primary:** 192 kbps M4A (AAC-LC) for crystal-clear recitations.<br>**Fallback:** 192 kbps universal MP3 for legacy browsers. |
+| **Acoustic Synthesizer**| **Web Audio API** | Pure algorithmic synthesis of temple bell chime harmonics (432Hz/864Hz/1296Hz) replacing corrupt legacy audio. |
 | **Video Engine** | **H.264 / AAC MP4** | Web-optimized progressive MP4 (CRF 18 visually lossless, `+faststart` atom alignment for instant zero-buffer seeking). |
 | **Visual Graphics** | **Progressive JPEG & WebP** | High-resolution parchment backdrops and archival photography preserved without downsampling. |
-| **Search Engine** | **Client-Side Inverted Index** | Client-side Sanskrit search with Devanagari ligature normalization (homorganic nasal to anusvāra) and IAST accent folding. |
-| **PWA & Offline** | **Service Worker & Manifest** | Web App Manifest + conservative Service Worker (`sw.js`) with Range-request safety bypass and video passthrough. |
+| **Search Engine** | **Client-Side Inverted Index** | Client-side Sanskrit search with Devanagari ligature normalization (homorganic nasal to anusvāra) and IAST accent folding across 222 documents. |
+| **PWA & Offline** | **Service Worker & Manifest** | Web App Manifest + Network-First Service Worker (`sw.js` v1.2.2) with Range-request safety bypass, video passthrough, and `?v=1.2.2` cache-busting. |
 | **Local Portability** | **Dual-Mode Execution** | Runs instantly via direct double-click (`file:///index.html`) or via zero-install local Python launcher (`run_local.py`). |
 
 ---
@@ -47,8 +49,9 @@ Every legacy file from the 1997 CD-ROM was mapped 1-to-1 into modern open standa
 | **Speech Audio (`.wav`)** | 173 uncompressed 16-bit 22.05 kHz WAVs | 173 M4A + 173 MP3 files | Transcoded to dual-format high-fidelity 192 kbps AAC-LC and 192 kbps MP3 with zero truncation. |
 | **Soundtrack / Bells (`.cxt`)** | 10 embedded Shockwave Audio (SWA) streams | 11 M4A + 11 MP3 special tracks | Extracted Director chimes, bells, and opening title theme (`ashmain_theme.m4a`) at 256 kbps in `assets/audio/special/`. |
 | **Master Visuals (`.jpg`, `.bmp`)** | 50 SVGA JPEGs + 3 uncompressed BMPs | 53 Master Web Visuals | BMP opening frames converted to lossless web-safe JPEG; all 25 performance backdrops preserved in `assets/images/`. |
-| **8-Bit Sanskrit Fonts** | `VedicBrahma2` typewriter font | Modern UTF-8 Unicode Devanagari | Automated algorithm (`tools/krutidev_decoder.py`) reversed short-i matra pre-fixes (`f`), reph post-fixes (`Z`), and conjuncts. |
+| **8-Bit Sanskrit Fonts** | `VedicBrahma2` typewriter font | Modern UTF-8 Unicode Devanagari | Automated algorithm (`tools/vedic_brahma2_restorer.py`) reversed 142 glyphs, matra pre-fixes, reph post-fixes, and conjuncts. |
 | **8-Bit English Transliteration** | `Palatino-RomanDiac` font | Standard IAST Diacritics | Decoded custom 8-bit glyph tables into standard Unicode diacritics (*Avadhānī*, *Samasyā*, *Śārdūlavikrīḍita*). |
+| **App Branding & Emblem** | Legacy Director icon | Circular Gold Scholar Emblem | Designed high-resolution SVG and PNG icon suites (`assets/icons/`) featuring the sacred Veena, conch, and scholar silhouette. |
 
 ---
 
@@ -63,16 +66,18 @@ DECONSTRUCT (RIFX/XFIR) ──▶ EXTRACT & DECODE ──▶ CANONICAL DATA MODE
 1. **Deconstruction**:
    - Custom Python decompressors parsed Director's RIFX/XFIR chunk hierarchy (`mmap`, `KEY*`, `DRCF`, `CASt`, `XMED`, `ediM`).
 2. **Text & Typography Recovery**:
-   - Typewriter glyph encodings were automatically converted to standard Unicode Devanagari and IAST macrons.
+   - Proprietary typewriter glyph encodings were automatically converted to standard Unicode Devanagari and IAST macrons using `tools/vedic_brahma2_restorer.py`.
    - Authentic Sanskrit role designations (*Avadhānī*, *Niṣiddhākṣarī*, *Samasyā*, *Dattapadī*, *Vyastākṣarī*, *Ghaṇṭā*, *Sabhāpati*) were recovered and color-coded.
 3. **Decoupled Data Architecture**:
    - Content was completely separated from presentation into a single canonical source of truth: `content/data.json`.
    - A zero-fetch, CORS-safe in-memory mirror (`js/data.js`) was established for direct double-click `file:///` execution.
 4. **Cinematic Opening Choreography**:
-   - The authentic 1997 opening title sequence was faithfully recreated using a 6-frame illuminated calligraphy progressive GPU dissolve (`S01.jpg`–`S06.jpg`), 3-stage cultural mosaic transition (`03` → `02` → `01`), centered video playback, and reverse-dissolve outro.
+   - The authentic 1997 opening title sequence was faithfully recreated using a 6-frame illuminated calligraphy progressive GPU dissolve (`S01.jpg`–`S06.jpg`) at 180ms cadence, 3-stage cultural mosaic transition (`03` → `02` → `01`), centered video playback, and reverse-dissolve outro.
 5. **Modern Enhancements Added Without Legacy Disruption**:
+   - **Autonomous Adaptive Viewport Engine**: Dynamic mathematical scaling in `app.js` guaranteeing zero text clipping on any mobile or desktop screen.
+   - **Symmetrical Dual-Header Architecture**: Left Navigation Drawer (Sections & 25 Rounds) and Right Tools Drawer (Views, Themes, Search, PWA).
    - **3-Way Display Switcher**: Instant live switching between Devanagari script, Bilingual side-by-side, and English IAST macrons.
-   - **Interactive Sanskrit Search Engine**: Client-side inverted index over 253 corpus documents with Devanagari ligature normalization and accent folding.
+   - **Interactive Sanskrit Search Engine**: Client-side inverted index over 222 corpus documents with Devanagari ligature normalization and accent folding.
    - **Smart TV 10-Foot Mode**: Spatial D-Pad navigation, remote keycode bindings, and touch DPAD overlay for big-screen television displays.
    - **Native HTTP 206 Range Handler**: Enhanced `run_local.py` with RFC 7233 byte-range seeking for smooth audio and video scrubbing.
 
@@ -90,10 +95,26 @@ To ensure forensic parity with the 1997 physical CD-ROM and eliminate any possib
 | **Speaker & Verse Parity** | Every dialogue turn across all 25 performance rounds was validated against the original Director score. | **25 / 25 Rounds**: All speaker turns, riddle verses, and bell strike counts match the 1997 audio bindings 1-to-1. |
 | **Canonical Data Synchronization** | Bi-directional consistency between JSON and JavaScript mirrors. | Running `python tools/sync_data_js.py --check` confirms **100% bit-for-bit synchronization**. |
 | **Automated Forensic Verification Suite** | 70 programmatic assertions checking assets on disk, database mappings, DOM IDs, and search queries. | Running `python tools/verify_1to1_mapping.py` executes **70 / 70 tests with a 100% pass rate**. |
+| **Multi-Device Responsiveness Suite** | 65 automated Playwright assertions across Desktop, iPad Pro, iPhone SE, Pixel 7, and Galaxy S20. | Running `pytest tests/test_mobile_responsive.py` executes **65 / 65 tests with a 100% pass rate**. |
 
 ---
 
-## 6. Verification Commands
+## 6. Version 2.0 Architectural Roadmap (The 9 Pillars)
+
+As detailed in [`v2/V2_MASTER_PLAN_AND_ROADMAP.md`](file:///c:/DataScience/Vijay%20Ji%27s%20Music%20Conversion/Ashtavadhanam_modern/v2/V2_MASTER_PLAN_AND_ROADMAP.md), the next major milestone enhances the platform with 9 non-destructive pillars:
+1. **Pillar 1: Organic Bhojpatra / Palm-Leaf Micro-Texture Engine**
+2. **Pillar 2: Animated Aṣṭadala Padma (Sacred 8-Petaled Lotus Watermark & Audio Avatar)**
+3. **Pillar 3: Real-Time Sanskrit Chandas (Meter) & Sandhi Inspector**
+4. **Pillar 4: Interactive Sanskrit Glossary & Avadhana Lore Companion**
+5. **Pillar 5: Precision Audio Playback Speed Selector (0.75×, 1.0×, 1.25×)**
+6. **Pillar 6: Active Verse Pāda (Karaoke) Highlighting & Auto-Scroll**
+7. **Pillar 7: Dual Sanctuary Theme Switcher (Night Sanctuary vs. Royal Palm-Leaf Daylight)**
+8. **Pillar 8: "The Avadhani's Challenge" Cognitive Memory Mini-Game**
+9. **Pillar 9: Printable Royal Manuscript Folio Generator (A4 Vector PDF Export with Top Official App Emblem)**
+
+---
+
+## 7. Verification Commands
 
 To independently verify the migration and asset integrity at any time:
 
@@ -104,6 +125,9 @@ python tools/verify_1to1_mapping.py
 # 2. Check canonical data layer synchronization
 python tools/sync_data_js.py --check
 
-# 3. Launch the application locally with native HTTP 206 range seeking
+# 3. Run the 65-point multi-device responsive Playwright test suite
+pytest tests/test_mobile_responsive.py
+
+# 4. Launch the application locally with native HTTP 206 range seeking
 python run_local.py
 ```

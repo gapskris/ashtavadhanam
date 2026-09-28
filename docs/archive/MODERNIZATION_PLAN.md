@@ -508,3 +508,66 @@ The modernization has achieved **zero legacy technical debt**:
 
 The entire 1997 Ashtavadhanam heritage is now preserved in **permanent, pristine open web standards**, ready for immediate study, recitation, and enjoyment on any device in the world.
 
+---
+
+## 11. Production Realization Chronicle & Post-Release Enhancements (v1.2.0 – v1.2.2 & v2 Roadmap)
+
+Following the initial execution of this modernization plan, a series of major functional, typographical, responsive, and architectural enhancements were designed, implemented, and verified:
+
+### 11.1 Spiritual Visual Identity & Official Branding (v1.2.1)
+- Re-engineered the `#splash-gateway` with a Radiant Golden Sunburst spiritual aesthetic.
+- Designed and integrated the authentic circular gold **Ashtavadhanam Scholar Emblem** (`assets/icons/favicon.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`) featuring the sacred Veena, conch, and scholar silhouette inside an ornamental double-fillet gold halo.
+- Responsive viewport scaling with safe containment, preventing header and footer clipping on mobile screens.
+
+### 11.2 VedicBrahma2 142-Glyph Sanskrit Restoration Pipeline
+- Built `tools/vedic_brahma2_restorer.py` to reverse-engineer 142 proprietary glyphs from the legacy 8-bit typewriter font.
+- Implemented a dual-layer data schema in `content/data.json`:
+  - `text_deva`: Fully restored Devanagari Unicode.
+  - `text_trans`: Academic IAST transliteration with correct diacritics.
+  - `sandhi`: Word-by-word grammatical and Sandhi splits.
+  - `meter` / `chandas`: Classical poetic meter classifications.
+- Restored homorganic nasal ligatures before stops (e.g., सञ्जीवयत्य्), virama attachments, glued verse daṇḍas, and pāda indentations.
+- Eliminated phantom empty dialogue cards and duplicate speaker prefixes.
+- Default script display set to pure Devanagari (`devanagari`).
+
+### 11.3 Autonomous Adaptive Viewport Engine & Stage Geometry
+- Engineered dynamic JavaScript viewport scaling in `js/app.js` (`updateStageScale()`):
+  - Dynamic mathematical scaling preventing text clipping across 4K, 1080p, tablets, and mobile screens.
+  - In-Canvas Parchment Flow: lifted dialogues to 13.2% clearance from top, keeping oil lamps (*diyas*) and banners unobstructed.
+  - Widened main stage container to 1080px flush alignment with the top page navigation bar.
+  - Eliminated background tiling with strict `background-repeat: no-repeat; background-size: contain`.
+
+### 11.4 Symmetrical Dual-Header Architecture & Navigation UX
+- Symmetrical Dual 3-Bars Header:
+  - Left Menu Drawer: Sections, Treatises, Scholars, Glimpses, and all 25 Rounds.
+  - Right Tools Drawer: Language Switcher, Themes, Search Trigger, PWA Install, Help, Acknowledgments, Exit.
+  - Top Center Home Button: Returns directly to the Splash Landing Gateway.
+- 25-Round Horizontal Page Navigation Bar with pinned left/right navigation arrows, custom gold scrollbar, and active pill auto-centering.
+- Fluid 180ms cadence S01–S06 title dissolve with direct montage bypass.
+
+### 11.5 Web Audio API Temple Bell Synthesizer
+- Replaced corrupt legacy `track_01` audio with an algorithmic acoustic physical synthesizer using the Web Audio API.
+- Generates authentic bronze bell harmonics at 432 Hz, 864 Hz, and 1296 Hz with exponential decay and metallic damping.
+
+### 11.6 Progressive Web App (v1.2.2) & Caching Strategy
+- Network-First service worker caching strategy with proactive updates.
+- Cache-busting mechanism (`?v=1.2.2`).
+- Explicit in-app PWA install prompts in the header and Tools Drawer.
+- iOS safe-area support (`viewport-fit=cover`, `apple-mobile-web-app-status-bar-style: black-translucent`).
+
+### 11.7 Automated Multi-Device Testing Suite
+- Created a 65-point automated Playwright test suite (`tests/test_mobile_responsive.py`) validating layout across Desktop 1080p, iPad Pro, iPhone SE, Google Pixel 7, and Samsung Galaxy S20 (65/65 PASS).
+
+### 11.8 Version 2.0 Architectural Blueprint (The 9 Pillars)
+Formalized in `v2/V2_MASTER_PLAN_AND_ROADMAP.md`:
+- Pillar 1: Bhojpatra / Palm-Leaf Micro-Texture Engine
+- Pillar 2: Animated Aṣṭadala Padma (Sacred 8-Petaled Lotus Watermark & Audio Avatar)
+- Pillar 3: Real-Time Sanskrit Chandas (Meter) & Sandhi Inspector
+- Pillar 4: Interactive Sanskrit Glossary & Avadhana Lore Companion
+- Pillar 5: Precision Audio Playback Speed Selector (0.75×, 1.0×, 1.25×)
+- Pillar 6: Active Verse Pāda (Karaoke) Highlighting & Auto-Scroll
+- Pillar 7: Dual Sanctuary Theme Switcher (Night Sanctuary vs. Royal Palm-Leaf Daylight)
+- Pillar 8: "The Avadhani's Challenge" Cognitive Memory Mini-Game
+- Pillar 9: Printable Royal Manuscript Folio Generator (A4 Vector PDF Export with Top Official App Emblem)
+
+
