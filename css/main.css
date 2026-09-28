@@ -1093,10 +1093,13 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 16px;
-  overflow: hidden;
+  justify-content: flex-start;
+  padding: max(10px, env(safe-area-inset-top)) 16px max(14px, env(safe-area-inset-bottom)) 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   transition: opacity 0.5s ease;
+  box-sizing: border-box;
 }
 
 .opening-stage.fade-out {
@@ -1108,16 +1111,19 @@ button {
   position: relative;
   max-width: 960px;
   width: 100%;
+  margin: auto 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 4px 0;
+  box-sizing: border-box;
 }
 
 /* Sacred Inscription Crest */
 .opening-spiritual-crest {
   text-align: center;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   animation: fadeIn 0.8s ease-out;
 }
 
@@ -1126,13 +1132,13 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   position: relative;
 }
 
 .gateway-emblem-img {
-  width: clamp(100px, 11vw, 148px);
-  height: clamp(100px, 11vw, 148px);
+  width: clamp(96px, 11vw, 144px);
+  height: clamp(96px, 11vw, 144px);
   border-radius: 50%;
   border: 3px solid #ffd875;
   outline: 2px solid rgba(229, 169, 60, 0.45);
@@ -1161,22 +1167,6 @@ button {
   }
   50% {
     box-shadow: 0 0 45px rgba(247, 220, 111, 0.85), 0 0 85px rgba(229, 169, 60, 0.55);
-  }
-}
-
-@media (max-width: 640px) {
-  .gateway-emblem-img {
-    width: 82px;
-    height: 82px;
-    border-width: 2px;
-    outline-offset: 3px;
-  }
-}
-
-@media (max-height: 740px) and (min-width: 641px) {
-  .gateway-emblem-img {
-    width: 100px;
-    height: 100px;
   }
 }
 
@@ -1320,6 +1310,116 @@ button {
   border-color: #FFF0A5;
   color: #FFFFFF;
   transform: translateY(-2px);
+}
+
+/* Responsive Gateway & Stage Adaptations */
+@media (max-width: 640px) {
+  .opening-stage {
+    padding: max(8px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)) 12px;
+  }
+
+  .gateway-emblem-wrapper {
+    margin-bottom: clamp(6px, 1.2vh, 10px);
+  }
+
+  .gateway-emblem-img {
+    width: clamp(64px, 15vw, 78px);
+    height: clamp(64px, 15vw, 78px);
+    border-width: 2px;
+    outline-offset: 3px;
+  }
+
+  .opening-spiritual-crest {
+    margin-bottom: clamp(6px, 1.2vh, 10px);
+  }
+
+  .crest-mantra {
+    font-size: clamp(1.05rem, 3.8vw, 1.35rem);
+    letter-spacing: 0.05em;
+  }
+
+  .crest-subtext {
+    font-size: clamp(0.64rem, 2vw, 0.74rem);
+    letter-spacing: 0.14em;
+    margin-top: 2px;
+  }
+
+  .opening-visual-frame,
+  .mosaic-frame-wrapper {
+    max-height: clamp(130px, 23vh, 195px);
+    width: auto;
+    aspect-ratio: 4 / 3;
+    box-shadow: 0 0 35px rgba(255, 220, 100, 0.6), 0 15px 35px rgba(0, 0, 0, 0.7);
+  }
+
+  .opening-caption-bar {
+    margin-top: clamp(6px, 1.4vh, 10px);
+  }
+
+  .opening-caption-bar h2 {
+    font-size: clamp(0.98rem, 3.4vw, 1.22rem);
+    margin-bottom: 2px;
+    line-height: 1.25;
+  }
+
+  .opening-caption-bar p {
+    font-size: clamp(0.72rem, 2vw, 0.82rem);
+    line-height: 1.3;
+  }
+
+  .opening-controls-bar {
+    margin-top: clamp(8px, 1.6vh, 14px);
+    gap: 8px;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .opening-controls-bar .primary-btn,
+  .opening-controls-bar .secondary-btn {
+    width: 100%;
+    padding: clamp(8px, 1.4vh, 11px) 14px;
+    font-size: clamp(0.8rem, 2.4vw, 0.9rem);
+    text-align: center;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-height: 720px) and (min-width: 641px) {
+  .gateway-emblem-wrapper {
+    margin-bottom: 8px;
+  }
+
+  .gateway-emblem-img {
+    width: 76px;
+    height: 76px;
+  }
+
+  .opening-spiritual-crest {
+    margin-bottom: 8px;
+  }
+
+  .opening-visual-frame,
+  .mosaic-frame-wrapper {
+    max-height: clamp(140px, 26vh, 210px);
+    width: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .opening-caption-bar {
+    margin-top: 8px;
+  }
+
+  .opening-controls-bar {
+    margin-top: 10px;
+    gap: 10px;
+  }
+
+  .opening-controls-bar .primary-btn,
+  .opening-controls-bar .secondary-btn {
+    padding: 9px 18px;
+    font-size: 0.85rem;
+  }
 }
 
 /* OPENING VIDEO STAGE (MOSAIC) */
