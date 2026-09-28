@@ -110,14 +110,19 @@ The **v2 Evolution** builds upon this immutable foundation to transform the appl
   3. *Sound the Bell Counter*: Count the random temple bell rings while answering a poetry quiz!
 
 ### Pillar 9: Printable Royal Manuscript Folio Generator (PDF Export)
-- **Objective**: Enable schools, ashrams, and universities to print authentic study sheets of any round.
-- **Implementation**:
-  - Client-side vector folio renderer.
-  - Clean `@media print` CSS layout and optional PDF download containing:
-    - Ashtavadhanam royal emblem at head.
-    - Round title, interrogator (*Pṛcchaka*), and poetic art.
-    - Sanskrit Devanagari verse in classical calligraphic font.
-    - English IAST translation and metrical analysis.
+- **Objective**: Enable schools, ashrams, universities, and scholars to print and archive authentic study sheets of any round.
+- **Header Architecture & Official App Icon**:
+  - **Top Centered App Emblem**: Every downloaded / printed A4 PDF folio MUST feature the official circular golden **Ashtavadhanam Application Icon** (`assets/icons/icon-192.png` / `apple-touch-icon.png`) prominently centered at the top of the header.
+  - **Archival Header Typography**: Directly below the emblem, the folio displays:
+    - *Sri Aurobindo Society Heritage Archives • 1997*
+    - Classical calligraphic title *AṢṬĀVADHĀNAM*
+    - Extempore round title, interrogator (*Pṛcchaka*), and poetic subject.
+- **Implementation & Page Content**:
+  - Client-side vector folio renderer with standard `@media print` CSS layout and instant vector PDF download.
+  - Sanskrit Devanagari verse in classical calligraphic font with Anuṣṭubh / Śārdūlavikrīḍita metrical breakdown.
+  - English IAST transliteration, word-for-word Sandhi splits, and poetic translation.
+  - Authentic dual archival stamps: Sri Aurobindo Society seal (Pondicherry) and Ashtavadhanam 1997 Heritage Preservation seal.
+  - Single-page A4 format per round (total 25 folios), with optional full 25-round bound anthology export.
 
 ---
 
@@ -133,6 +138,9 @@ To resolve screen clutter and ensure 100% feature accessibility across both desk
 | **Pillar 4: Glossary & Lore** | Persistent Right Companion Panel card | Inline term tap tooltip bottom-sheet + complete glossary in top-right Tools Drawer (⋮) |
 | **Pillar 5: Audio Speed Control** | Instant speed selector in audio player bar | Single-thumb `⚡ 1.0×` button in floating audio player bar cycling `0.75×`, `1.0×`, `1.25×` |
 | **Pillar 6: Active Verse Pāda Highlighting** | Golden card aura + real-time line-by-line Pāda illumination synchronized with audio | Real-time line highlight + smooth card auto-scroll centering active verse |
+| **Pillar 7: Dual Sanctuary Themes** | Dedicated Sun/Moon switch on header and audio bar | Quick-tap toggle inside top-right Tools Drawer (⋮) and Settings sheet |
+| **Pillar 8: The Avadhani's Challenge** | High-visibility gold beacon banner on round header (`[🧠 Test Your Memory in Round 1]`) | Compact sticky challenge pill on round header + slide-up interactive quiz bottom sheet |
+| **Pillar 9: PDF Royal Folio Export** | Instant `[📄 Export A4 Folio]` button $\rightarrow$ side-by-side print preview studio with toggleable annotations | `[📥 Save PDF]` in mobile action bar $\rightarrow$ downloads clean A4 single-sheet folio with top app icon |
 
 ---
 
