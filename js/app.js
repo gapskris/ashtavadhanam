@@ -354,7 +354,11 @@ class AshtavadhanamApp {
       return img;
     });
 
+    // Start autonomous landing page calligraphic dissolve (S01 to S06)
+    this.startLandingAnimation();
+
     const clearAllTimers = () => {
+      this.stopLandingAnimation();
       this.openingSequenceTimers.forEach(t => clearTimeout(t));
       this.openingSequenceTimers = [];
     };
@@ -602,9 +606,53 @@ class AshtavadhanamApp {
         if (this.splashGateway) this.splashGateway.classList.remove('hidden');
         if (this.openingVideoStage) this.openingVideoStage.classList.add('hidden');
         if (this.openingTitleStage) this.openingTitleStage.classList.remove('hidden');
+        this.startLandingAnimation();
       });
     }
 
+  }
+
+  /* ================= AUTONOMOUS LANDING CALLIGRAPHIC ILLUMINATION ================= */
+  startLandingAnimation() {
+    this.stopLandingAnimation();
+    this.landingFrames = [
+      document.getElementById('landing-frame-1'),
+      document.getElementById('landing-frame-2'),
+      document.getElementById('landing-frame-3'),
+      document.getElementById('landing-frame-4'),
+      document.getElementById('landing-frame-5'),
+      document.getElementById('landing-frame-6')
+    ].filter(Boolean);
+
+    if (this.landingFrames.length < 6) return;
+
+    let currentIdx = 0;
+    const advance = () => {
+      const nextIdx = (currentIdx + 1) % this.landingFrames.length;
+      if (nextIdx === 0) {
+        // Reset back to S01
+        this.landingFrames.forEach((f, i) => {
+          if (i === 0) f.classList.add('active');
+          else f.classList.remove('active');
+        });
+      } else {
+        // Illuminate next calligraphy stage
+        this.landingFrames[nextIdx].classList.add('active');
+      }
+      currentIdx = nextIdx;
+      // Hold complete illumination for 3.5s, progressive frames for 1.2s
+      const delay = (currentIdx === 5) ? 3500 : 1200;
+      this.landingTimer = setTimeout(advance, delay);
+    };
+
+    this.landingTimer = setTimeout(advance, 1200);
+  }
+
+  stopLandingAnimation() {
+    if (this.landingTimer) {
+      clearTimeout(this.landingTimer);
+      this.landingTimer = null;
+    }
   }
 
   /* ================= RETURN TO MAIN LANDING PAGE ================= */
@@ -624,6 +672,7 @@ class AshtavadhanamApp {
     if (this.splashGateway) this.splashGateway.classList.remove('hidden');
     if (this.openingVideoStage) this.openingVideoStage.classList.add('hidden');
     if (this.openingTitleStage) this.openingTitleStage.classList.remove('hidden');
+    this.startLandingAnimation();
     window.scrollTo(0, 0);
   }
 

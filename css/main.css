@@ -1399,9 +1399,9 @@ button {
 
 .opening-visual-frame {
   position: relative;
-  width: auto;
+  width: min(720px, calc(var(--dynamic-stage-max-h, 360px) * 4 / 3), 90vw);
   max-width: 720px;
-  max-height: var(--dynamic-stage-max-h, 240px);
+  max-height: var(--dynamic-stage-max-h, 360px);
   aspect-ratio: 4 / 3;
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -1554,8 +1554,8 @@ button {
 
   .opening-visual-frame,
   .mosaic-frame-wrapper {
-    max-height: clamp(130px, 23vh, 195px);
-    width: auto;
+    width: min(720px, calc(var(--dynamic-stage-max-h, 210px) * 4 / 3), 92vw);
+    max-height: var(--dynamic-stage-max-h, 210px);
     aspect-ratio: 4 / 3;
     box-shadow: 0 0 35px rgba(255, 220, 100, 0.6), 0 15px 35px rgba(0, 0, 0, 0.7);
   }
@@ -1609,8 +1609,8 @@ button {
 
   .opening-visual-frame,
   .mosaic-frame-wrapper {
-    max-height: clamp(140px, 26vh, 210px);
-    width: auto;
+    width: min(720px, calc(var(--dynamic-stage-max-h, 210px) * 4 / 3), 92vw);
+    max-height: var(--dynamic-stage-max-h, 210px);
     aspect-ratio: 4 / 3;
   }
 
@@ -1656,8 +1656,8 @@ button {
   }
   .opening-visual-frame,
   .mosaic-frame-wrapper {
+    width: min(720px, calc(var(--dynamic-stage-max-h, 110px) * 4 / 3), 92vw);
     max-height: var(--dynamic-stage-max-h, 110px);
-    width: auto;
     aspect-ratio: 4 / 3;
   }
   .opening-caption-bar {
@@ -1691,9 +1691,9 @@ button {
 /* OPENING VIDEO STAGE (MOSAIC) */
 .mosaic-frame-wrapper {
   position: relative;
-  width: auto;
+  width: min(760px, calc(var(--dynamic-stage-max-h, 360px) * 4 / 3), 90vw);
   max-width: 760px;
-  max-height: var(--dynamic-stage-max-h, 240px);
+  max-height: var(--dynamic-stage-max-h, 360px);
   aspect-ratio: 4 / 3;
   border-radius: var(--radius-md);
   overflow: hidden;
