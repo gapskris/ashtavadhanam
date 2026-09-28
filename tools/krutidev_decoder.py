@@ -109,7 +109,7 @@ def krutidev_to_devanagari(text):
         ('d', 'क'), ('x', 'ग'), ('p', 'च'), ('N', 'छ'), ('t', 'ज'),
         ('V', 'ट'), ('B', 'ठ'), ('M', 'ड'), ('<', 'ढ'),
         ('r', 'त'), ('n', 'द'), ('u', 'न'), ('i', 'प'), ('Q', 'फ'),
-        ('c', 'ब'), ('e', 'म'), ('y', 'य'), ('j', 'र'), ('y', 'ल'),
+        ('c', 'ब'), ('e', 'म'), (';', 'य'), ('j', 'र'), ('y', 'ल'),
         ('o', 'व'), ('l', 'स'), ('g', 'ह'), ('K', 'ज्ञ'),
         ('ks', 'ो'), ('kS', 'ौ'), ('k', 'ा'), ('h', 'ी'),
         ('q', 'ु'), ('w', 'ू'), ('s', 'े'), ('S', 'ै'),
@@ -132,6 +132,7 @@ def krutidev_to_devanagari(text):
         
     return t
 
-sample_text = "vo/kkuh   ;ks·Ur% izfo\'; ee okpfeeka izlqÆka\nl ho;R;f[ky\'kfDr/kj% Lo/kkEuk A\nfuf\"k/kk{kjh  fuf\"k)% A"
-print("Decoded sample:")
-print(krutidev_to_devanagari(sample_text))
+if __name__ == '__main__':
+    sample_text = "vo/kkuh   ;ks·Ur% izfo\'; ee okpfeeka izlqÆka\nl ho;R;f[ky\'kfDr/kj% Lo/kkEuk A\nfuf\"k/kk{kjh  fuf\"k)% A"
+    print("Decoded sample:")
+    print(krutidev_to_devanagari(sample_text))

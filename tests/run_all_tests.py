@@ -23,6 +23,7 @@ def main():
         ("Native HTTP 206 Range Seeking Test", [sys.executable, os.path.join(tests_dir, "test_range_requests.py")]),
         ("Audio Player Logic & State Toggle Test", ["node", os.path.join(tests_dir, "test_player_logic.js")]),
         ("Sanskrit Typography & Card Cardinality Test", [sys.executable, os.path.join(tests_dir, "test_sanskrit_alignment.py")]),
+        ("Sanskrit Orthography & 25-Round Unicode Parity Test", [sys.executable, os.path.join(tests_dir, "test_sanskrit_orthography.py")]),
         ("70-Point Forensic Audit Verification Suite", [sys.executable, os.path.join(tests_dir, "test_1to1_verification.py")]),
         ("Mobile Multi-Device Forensic Verification Suite (Playwright)", [sys.executable, os.path.join(tests_dir, "test_mobile_matrix.py")]),
         ("Adaptive Viewport Engine Multi-Device Forensic Test", [sys.executable, os.path.join(tests_dir, "test_adaptive_viewport_engine.py")]),
