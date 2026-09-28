@@ -25,6 +25,7 @@ def main():
         ("Sanskrit Typography & Card Cardinality Test", [sys.executable, os.path.join(tests_dir, "test_sanskrit_alignment.py")]),
         ("70-Point Forensic Audit Verification Suite", [sys.executable, os.path.join(tests_dir, "test_1to1_verification.py")]),
         ("Mobile Multi-Device Forensic Verification Suite (Playwright)", [sys.executable, os.path.join(tests_dir, "test_mobile_matrix.py")]),
+        ("Adaptive Viewport Engine Multi-Device Forensic Test", [sys.executable, os.path.join(tests_dir, "test_adaptive_viewport_engine.py")]),
     ]
 
     all_passed = True

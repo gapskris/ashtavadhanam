@@ -22,6 +22,12 @@
   --radius-md: 14px;
   --radius-lg: 20px;
   --transition: all 0.25s ease;
+
+  /* Adaptive Dynamic Viewport Engine Defaults (Live computed by js/viewport-engine.js) */
+  --app-dvh: 100vh;
+  --app-dvw: 100vw;
+  --ui-scale: 1;
+  --dynamic-stage-max-h: 360px;
 }
 
 /* Reset & Base */
@@ -1137,8 +1143,8 @@ button {
 }
 
 .gateway-emblem-img {
-  width: clamp(96px, 11vw, 144px);
-  height: clamp(96px, 11vw, 144px);
+  width: clamp(64px, calc(105px * var(--ui-scale, 1)), 144px);
+  height: clamp(64px, calc(105px * var(--ui-scale, 1)), 144px);
   border-radius: 50%;
   border: 3px solid #ffd875;
   outline: 2px solid rgba(229, 169, 60, 0.45);
@@ -1173,7 +1179,7 @@ button {
 .crest-mantra {
   font-family: 'Noto Serif Devanagari', 'Sanskrit Text', var(--font-serif);
   color: #FFF2A8;
-  font-size: clamp(1.2rem, 3.2vw, 1.7rem);
+  font-size: clamp(1.05rem, calc(1.35rem * var(--ui-scale, 1)), 1.7rem);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65), 0 0 25px rgba(255, 230, 100, 0.45);
@@ -1182,7 +1188,7 @@ button {
 .crest-subtext {
   color: #FFF8D6;
   font-family: var(--font-serif);
-  font-size: clamp(0.72rem, 1.8vw, 0.85rem);
+  font-size: clamp(0.64rem, calc(0.78rem * var(--ui-scale, 1)), 0.85rem);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   font-weight: 600;
@@ -1192,8 +1198,9 @@ button {
 
 .opening-visual-frame {
   position: relative;
-  width: 100%;
+  width: auto;
   max-width: 720px;
+  max-height: var(--dynamic-stage-max-h, 240px);
   aspect-ratio: 4 / 3;
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -1422,11 +1429,70 @@ button {
   }
 }
 
+/* Landscape Mobile Ultra-Short Viewports (e.g. 844x390, 667x375) */
+@media (max-height: 500px) and (orientation: landscape) {
+  .opening-stage {
+    padding: 6px 12px;
+  }
+  .gateway-emblem-wrapper {
+    margin-bottom: 4px;
+  }
+  .gateway-emblem-img {
+    width: 44px;
+    height: 44px;
+    border-width: 2px;
+    outline-offset: 2px;
+  }
+  .opening-spiritual-crest {
+    margin-bottom: 4px;
+  }
+  .crest-mantra {
+    font-size: 0.95rem;
+  }
+  .crest-subtext {
+    font-size: 0.58rem;
+    margin-top: 1px;
+  }
+  .opening-visual-frame,
+  .mosaic-frame-wrapper {
+    max-height: var(--dynamic-stage-max-h, 110px);
+    width: auto;
+    aspect-ratio: 4 / 3;
+  }
+  .opening-caption-bar {
+    margin-top: 4px;
+  }
+  .opening-caption-bar h2 {
+    font-size: 0.92rem;
+    margin-bottom: 1px;
+  }
+  .opening-caption-bar p {
+    font-size: 0.68rem;
+    line-height: 1.2;
+  }
+  .opening-controls-bar {
+    margin-top: 6px;
+    gap: 8px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 580px;
+  }
+  .opening-controls-bar .primary-btn,
+  .opening-controls-bar .secondary-btn {
+    width: auto;
+    flex: 1 1 220px;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+}
+
 /* OPENING VIDEO STAGE (MOSAIC) */
 .mosaic-frame-wrapper {
   position: relative;
-  width: 100%;
+  width: auto;
   max-width: 760px;
+  max-height: var(--dynamic-stage-max-h, 240px);
   aspect-ratio: 4 / 3;
   border-radius: var(--radius-md);
   overflow: hidden;

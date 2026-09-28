@@ -10,7 +10,7 @@
  * 4. AUDIO: Cached at runtime only upon receiving a complete 200 OK response.
  */
 
-const CORE_CACHE_NAME = 'ashtavadhanam-core-v1.2.9';
+const CORE_CACHE_NAME = 'ashtavadhanam-core-v1.3.0';
 const MEDIA_CACHE_NAME = 'ashtavadhanam-media-v1.1.0';
 
 // Core Application Shell assets (~2.5 MB total)
@@ -21,6 +21,7 @@ const PRECACHE_ASSETS = [
   'css/main.css',
   'css/player.css',
   'css/tv.css',
+  'js/viewport-engine.js',
   'js/app.js',
   'js/search.js',
   'js/data.js',
