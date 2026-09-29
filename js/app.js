@@ -365,6 +365,29 @@ class AshtavadhanamApp {
     // Start autonomous landing page calligraphic dissolve (S01 to S06)
     this.startLandingAnimation();
 
+    // Make landing frame interactive to play the letter 'T' sparkle chime immediately on click
+    const landingVisual = document.getElementById('landing-visual-frame');
+    if (landingVisual) {
+      landingVisual.style.cursor = 'pointer';
+      landingVisual.title = "Click to play letter 'T' sparkle chime";
+      landingVisual.addEventListener('click', () => {
+        if (this.titleSparkleAudio) {
+          this.titleSparkleAudio.currentTime = 0;
+          this.titleSparkleAudio.volume = 0.85;
+          this.titleSparkleAudio.play().catch(e => console.log('Sparkle click error:', e));
+        }
+      });
+    }
+
+    // Unlock landing audio on any first gesture (click/tap/key) anywhere on the landing screen
+    const unlockLandingAudio = () => {
+      if (this.titleSparkleAudio && this.titleSparkleAudio.paused && this.titleSparkleAudio.currentTime === 0) {
+        this.titleSparkleAudio.load();
+      }
+    };
+    window.addEventListener('pointerdown', unlockLandingAudio, { once: true });
+    window.addEventListener('keydown', unlockLandingAudio, { once: true });
+
     const clearAllTimers = () => {
       this.stopLandingAnimation();
       this.openingSequenceTimers.forEach(t => clearTimeout(t));
@@ -672,6 +695,25 @@ class AshtavadhanamApp {
       }
 
       // Fast fluid 260ms reveal per stage; 3200ms hold on complete illuminated S06
+      if (step === 5) {
+        if (this.titleSparkleAudio) {
+          try {
+            this.titleSparkleAudio.currentTime = 0;
+            this.titleSparkleAudio.volume = 0.85;
+            const playPromise = this.titleSparkleAudio.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(e => {
+                // If browser blocks unmuted audio on initial cold load before user interaction,
+                // the sound will play on subsequent loops after any user click/tap
+                console.log('Landing sparkle audio awaiting user activation:', e.name);
+              });
+            }
+          } catch(err) {
+            console.log('Landing sparkle audio error:', err);
+          }
+        }
+      }
+
       const delay = (step === 5) ? 3200 : 260;
       this.landingTimer = setTimeout(playStep, delay);
     };
@@ -684,6 +726,9 @@ class AshtavadhanamApp {
     if (this.landingTimer) {
       clearTimeout(this.landingTimer);
       this.landingTimer = null;
+    }
+    if (this.titleSparkleAudio) {
+      this.titleSparkleAudio.pause();
     }
   }
 
