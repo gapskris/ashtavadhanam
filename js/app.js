@@ -660,7 +660,7 @@ class AshtavadhanamApp {
 
   }
 
-  /* ================= AUTONOMOUS LANDING CALLIGRAPHIC ILLUMINATION ================= */
+  /* ================= AUTONOMOUS LANDING CALLIGRAPHIC ILLUMINATION (PLAY ONCE) ================= */
   startLandingAnimation() {
     this.stopLandingAnimation();
     this.landingFrames = [
@@ -674,48 +674,46 @@ class AshtavadhanamApp {
 
     if (this.landingFrames.length < 6) return;
 
+    // Ensure only frame 1 (blank parchment & quill) is active at start
+    this.landingFrames.forEach((f, i) => {
+      f.classList.remove('fade-reset');
+      if (i === 0) {
+        f.classList.add('active');
+      } else {
+        f.classList.remove('active');
+      }
+    });
+
     let step = 0;
     const playStep = () => {
-      step = (step + 1) % 6;
-      if (step === 0) {
-        // Seamless crossfade reset: fade out layers 2-6 over 0.9s while frame 1 is already underneath
-        this.landingFrames.forEach((f, i) => {
-          if (i > 0) {
-            f.classList.add('fade-reset');
-            f.classList.remove('active');
-          }
-        });
-        this.landingTimer = setTimeout(() => {
-          this.landingFrames.forEach(f => f.classList.remove('fade-reset'));
-          this.landingTimer = setTimeout(playStep, 500);
-        }, 900);
-        return;
-      } else {
+      step++;
+      if (step < 6) {
         this.landingFrames[step].classList.add('active');
-      }
 
-      // Fast fluid 260ms reveal per stage; 3200ms hold on complete illuminated S06
-      if (step === 5) {
-        if (this.titleSparkleAudio) {
-          try {
-            this.titleSparkleAudio.currentTime = 0;
-            this.titleSparkleAudio.volume = 0.85;
-            const playPromise = this.titleSparkleAudio.play();
-            if (playPromise !== undefined) {
-              playPromise.catch(e => {
-                // If browser blocks unmuted audio on initial cold load before user interaction,
-                // the sound will play on subsequent loops after any user click/tap
-                console.log('Landing sparkle audio awaiting user activation:', e.name);
-              });
+        // When step === 5 (Frame S06: full title + star glint on letter 'T') is reached:
+        if (step === 5) {
+          if (this.titleSparkleAudio) {
+            try {
+              this.titleSparkleAudio.currentTime = 0;
+              this.titleSparkleAudio.volume = 0.85;
+              const playPromise = this.titleSparkleAudio.play();
+              if (playPromise !== undefined) {
+                playPromise.catch(e => {
+                  console.log('Landing sparkle audio awaiting user activation:', e.name);
+                });
+              }
+            } catch(err) {
+              console.log('Landing sparkle audio error:', err);
             }
-          } catch(err) {
-            console.log('Landing sparkle audio error:', err);
           }
+          // Single-play reveal complete: Stop and rest permanently on Frame S06
+          this.landingTimer = null;
+          return;
         }
-      }
 
-      const delay = (step === 5) ? 3200 : 260;
-      this.landingTimer = setTimeout(playStep, delay);
+        // Advance to next frame after 260ms
+        this.landingTimer = setTimeout(playStep, 260);
+      }
     };
 
     // Begin fluid reveal after 600ms initial pause on frame 1
