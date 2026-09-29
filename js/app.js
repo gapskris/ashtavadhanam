@@ -325,6 +325,7 @@ class AshtavadhanamApp {
     ];
     this.btnThemeSoundToggle = document.getElementById('btn-theme-sound-toggle');
     this.openingThemeAudio = document.getElementById('opening-theme-audio');
+    this.titleSparkleAudio = document.getElementById('title-sparkle-audio');
 
     // Stacked Mosaic Frames (01, 02, 03) & Montage Video
     this.mosaicContainer = document.getElementById('opening-mosaic-container');
@@ -377,6 +378,9 @@ class AshtavadhanamApp {
       }
       if (this.openingThemeAudio) {
         this.openingThemeAudio.pause();
+      }
+      if (this.titleSparkleAudio) {
+        this.titleSparkleAudio.pause();
       }
       if (this.splashGateway) this.splashGateway.classList.add('hidden');
       if (this.appShell) this.appShell.classList.remove('hidden');
@@ -599,8 +603,13 @@ class AshtavadhanamApp {
             this.statusDesc.textContent = `Illuminating Title Calligraphy — Stage ${idx + 1} of 6`;
           }
 
-          // When S06 (final frame) is fully reached, hold for 2.2s then transition to Phase 2 (Montage Video)
+          // When S06 (final frame) is fully reached, trigger the temple bell sparkle sound for letter 'T' and hold for 2.2s
           if (idx === 5) {
+            if (this.titleSparkleAudio) {
+              this.titleSparkleAudio.currentTime = 0;
+              this.titleSparkleAudio.volume = 0.85;
+              this.titleSparkleAudio.play().catch(e => console.log('Sparkle audio play:', e));
+            }
             const finishTimer = setTimeout(() => {
               runMontagePhase();
             }, 2200);
@@ -693,6 +702,8 @@ class AshtavadhanamApp {
     if (this.navDrawer) this.navDrawer.classList.remove('open');
     if (this.appShell) this.appShell.classList.add('hidden');
     if (this.splashGateway) this.splashGateway.classList.remove('hidden');
+    if (this.openingThemeAudio) this.openingThemeAudio.pause();
+    if (this.titleSparkleAudio) this.titleSparkleAudio.pause();
     if (this.openingVideoStage) this.openingVideoStage.classList.add('hidden');
     if (this.openingTitleStage) this.openingTitleStage.classList.remove('hidden');
     this.startLandingAnimation();

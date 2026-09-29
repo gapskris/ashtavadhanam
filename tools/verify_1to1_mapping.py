@@ -99,13 +99,18 @@ def run_verification():
     
     m4as = glob.glob(os.path.join(MODERN_DIR, "assets", "audio", "Page *", "*.m4a"))
     mp3s = glob.glob(os.path.join(MODERN_DIR, "assets", "audio", "Page *", "*.mp3"))
-    specials_m4a = glob.glob(os.path.join(MODERN_DIR, "assets", "audio", "special", "*.m4a"))
-    specials_mp3 = glob.glob(os.path.join(MODERN_DIR, "assets", "audio", "special", "*.mp3"))
+    specials_m4a = [f for f in glob.glob(os.path.join(MODERN_DIR, "assets", "audio", "special", "*.m4a")) if not os.path.basename(f).startswith("sparkle_")]
+    specials_mp3 = [f for f in glob.glob(os.path.join(MODERN_DIR, "assets", "audio", "special", "*.mp3")) if not os.path.basename(f).startswith("sparkle_")]
+    sparkle_m4a = glob.glob(os.path.join(MODERN_DIR, "assets", "audio", "special", "sparkle_*.m4a"))
+    sparkle_mp3 = glob.glob(os.path.join(MODERN_DIR, "assets", "audio", "special", "sparkle_*.mp3"))
+
+    check("All 11 Director internal sound effects, bells & opening theme extracted as M4A", len(specials_m4a) == 11, f"Found {len(specials_m4a)}")
+    check("All 11 Director internal sound effects, bells & opening theme converted as MP3", len(specials_mp3) == 11, f"Found {len(specials_mp3)}")
+    if sparkle_m4a:
+        check("Sparkle enhancement audio options synthesized in dual M4A and MP3", len(sparkle_m4a) == 3 and len(sparkle_mp3) == 3)
 
     check("All 173 High-Fidelity Master M4A (192kbps AAC) recitation tracks exist", len(m4as) == 173, f"Found {len(m4as)}")
     check("All 173 Universal Fallback MP3 recitation tracks exist", len(mp3s) == 173, f"Found {len(mp3s)}")
-    check("All 11 Director internal sound effects, bells & opening theme extracted as M4A", len(specials_m4a) == 11, f"Found {len(specials_m4a)}")
-    check("All 11 Director internal sound effects, bells & opening theme converted as MP3", len(specials_mp3) == 11, f"Found {len(specials_mp3)}")
 
     # 4. DATABASE & DATA LAYER INTEGRITY
     print("\n--- 4. DATA LAYER SCHEMA & 1-TO-1 MAPPING AUDIT ---")

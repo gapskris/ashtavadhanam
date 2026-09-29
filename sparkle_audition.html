@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ Title Sparkle Sound Audition — Aṣṭāvadhānam Preservation</title>
+  <style>
+    :root {
+      --bg: #0d0f18;
+      --card-bg: rgba(26, 32, 53, 0.95);
+      --gold: #d4af37;
+      --gold-light: #fef3c7;
+      --gold-glow: rgba(212, 175, 55, 0.4);
+      --accent: #38bdf8;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --border: rgba(212, 175, 55, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 20%, #1e2640 0%, #0d0f18 100%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--gold);
+      border-radius: 9999px;
+      color: var(--gold);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #fff;
+      font-weight: 700;
+      text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+      margin-bottom: 0.5rem;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* Stage preview */
+    .stage-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .stage-screen {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .stage-screen img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: opacity 0.4s ease;
+    }
+
+    .sparkle-target-marker {
+      position: absolute;
+      top: 50.5%;
+      left: 64.2%;
+      width: 38px;
+      height: 38px;
+      transform: translate(-50%, -50%);
+      border: 2px dashed #facc15;
+      border-radius: 50%;
+      pointer-events: none;
+      box-shadow: 0 0 25px #facc15;
+      animation: pulse 1.5s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+      100% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+    }
+
+    .stage-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      background: rgba(15, 20, 35, 0.9);
+      border-top: 1px solid var(--border);
+    }
+
+    .btn-main {
+      background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+      color: #000;
+      font-weight: 700;
+      border: none;
+      padding: 0.75rem 1.4rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+      background: linear-gradient(135deg, #fce07e 0%, #d4af37 100%);
+    }
+
+    .stage-status {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Sound options grid */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .option-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .option-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .option-card.selected {
+      border-color: var(--accent);
+      background: rgba(30, 41, 70, 0.98);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.3);
+    }
+
+    .option-header {
+      margin-bottom: 1rem;
+    }
+
+    .option-number {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .option-title {
+      font-size: 1.25rem;
+      color: #fff;
+      font-weight: 700;
+      margin-top: 0.2rem;
+    }
+
+    .option-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-bottom: 1.25rem;
+      min-height: 55px;
+    }
+
+    .option-specs {
+      font-size: 0.8rem;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      margin-bottom: 1.25rem;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    audio {
+      width: 100%;
+      height: 36px;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .btn-audition {
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    .btn-audition:hover {
+      background: var(--gold);
+      color: #000;
+    }
+
+    /* Explanation Footer */
+    .info-box {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    .info-box h3 {
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .info-box ul {
+      margin-left: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .info-box li {
+      margin-bottom: 0.4rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="badge">Aṣṭāvadhānam 1997 Heritage Enhancement</div>
+      <h1>Title Reveal Sparkle Audition</h1>
+      <p class="subtitle">
+        Visual sparkle on the letter <strong>‘T’</strong> of <em>"SANSKRIT"</em> (Frame S06).<br>
+        Compare three meticulously tuned 1-second audio options below.
+      </p>
+    </header>
+
+    <!-- Stage Simulation Screen -->
+    <div class="stage-card">
+      <div class="stage-screen">
+        <img id="stageImg" src="assets/images/opening/S06.jpg" alt="Title Frame S06 with Sparkle">
+        <div class="sparkle-target-marker" title="Letter 'T' Sparkle Location"></div>
+      </div>
+      <div class="stage-controls">
+        <button id="btnSimulate" class="btn-main" onclick="runSimulation()">
+          <span>✨</span> Simulate Full Title Reveal + Sparkle
+        </button>
+        <div class="stage-status" id="stageStatus">
+          Frame: <strong>S06.jpg</strong> | Currently Auditioning: <strong id="activeChoiceName">Option 1 (Crystal Chime)</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 Sound Options Grid -->
+    <div class="options-grid">
+      <!-- Option 1 -->
+      <div class="option-card selected" id="card-1" onclick="selectOption(1)">
+        <div class="option-header">
+          <div class="option-number">Option 1</div>
+          <div class="option-title">Crystal Chime</div>
+        </div>
+        <p class="option-desc">
+          Bright, crystalline star glint. An elegant rising arpeggio (C6–G7) with subtle 7.5 Hz vibrato and silky smooth decay.
+        </p>
+        <div class="option-specs">
+          ⏱️ <strong>1.0s</strong> • 🎵 High-pass 1.04kHz–3.1kHz<br>
+          ✨ Ideal for crisp, celestial title reveals
+        </div>
+        <audio id="audio-1" controls preload="auto">
+          <source src="assets/audio/special/sparkle_01_crystal_chime.m4a" type="audio/mp4">
+          <source src="assets/audio/special/sparkle_01_crystal_chime.mp3" type="audio/mpeg">
+        </audio>
+        <button class="btn-audition" onclick="event.stopPropagation(); playAudition(1);">
+          <span>▶</span> Audition Sound Alone
+        </button>
+      </div>
+
+      <!-- Option 2 -->
+      <div class="option-card" id="card-2" onclick="selectOption(2)">
+        <div class="option-header">
+          <div class="option-number">Option 2</div>
+          <div class="option-title">Magic Shimmer</div>
+        </div>
+        <p class="option-desc">
+          Ethereal fairy-dust / stardust cascade. 32 micro-twinkles rising from 1.8kHz to 4.4kHz with crystalline air resonance.
+        </p>
+        <div class="option-specs">
+          ⏱️ <strong>1.1s</strong> • 🎵 32-note Micro-cascade<br>
+          ✨ Ideal for whimsical, sparkling stardust
+        </div>
+        <audio id="audio-2" controls preload="auto">
+          <source src="assets/audio/special/sparkle_02_magic_shimmer.m4a" type="audio/mp4">
+          <source src="assets/audio/special/sparkle_02_magic_shimmer.mp3" type="audio/mpeg">
+        </audio>
+        <button class="btn-audition" onclick="event.stopPropagation(); playAudition(2);">
+          <span>▶</span> Audition Sound Alone
+        </button>
+      </div>
+
+      <!-- Option 3 -->
+      <div class="option-card" id="card-3" onclick="selectOption(3)">
+        <div class="option-header">
+          <div class="option-number">Option 3</div>
+          <div class="option-title">Temple Bell Glint</div>
+        </div>
+        <p class="option-desc">
+          Sacred Indian bronze micro-bell. Tuned to F#6 (1480 Hz) with authentic bell partial harmonics and a warm bronze tail.
+        </p>
+        <div class="option-specs">
+          ⏱️ <strong>1.0s</strong> • 🎵 Authentic Bell Partials (F#6)<br>
+          ✨ Ideal for cultural, reverent Sanskrit motif
+        </div>
+        <audio id="audio-3" controls preload="auto">
+          <source src="assets/audio/special/sparkle_03_temple_bell.m4a" type="audio/mp4">
+          <source src="assets/audio/special/sparkle_03_temple_bell.mp3" type="audio/mpeg">
+        </audio>
+        <button class="btn-audition" onclick="event.stopPropagation(); playAudition(3);">
+          <span>▶</span> Audition Sound Alone
+        </button>
+      </div>
+    </div>
+
+    <!-- Technical & Aesthetic Insights -->
+    <div class="info-box">
+      <h3>🏛️ Sound Design & Preservation Rationale</h3>
+      <ul>
+        <li><strong>Why ~1.0 Second?</strong> The title reveal sequence pauses on frame S06 for 2.2 to 3.2 seconds before dissolving into the cultural montage. A 1.0-second sound has an immediate crisp attack on the star glint and completely fades away before the next transition begins.</li>
+        <li><strong>Format Parity:</strong> All 3 sounds are synthesized and exported in dual <strong>M4A (AAC-LC 192kbps)</strong> and <strong>MP3 (192kbps)</strong> formats in compliance with Project Preservation Rules.</li>
+        <li><strong>Autoplay Compliance:</strong> In the production app, the sound is triggered during the user-initiated <em>"▶ Play Authentic Opening Montage & Invocations"</em> sequence, guaranteeing seamless playback without browser gesture blockage.</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    let activeOption = 1;
+    const optionNames = {
+      1: "Option 1 (Crystal Chime)",
+      2: "Option 2 (Magic Shimmer)",
+      3: "Option 3 (Temple Bell Glint)"
+    };
+
+    function selectOption(id) {
+      activeOption = id;
+      document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+      document.getElementById('card-' + id).classList.add('selected');
+      document.getElementById('activeChoiceName').textContent = optionNames[id];
+    }
+
+    function playAudition(id) {
+      selectOption(id);
+      stopAllAudio();
+      const audio = document.getElementById('audio-' + id);
+      audio.currentTime = 0;
+      audio.play().catch(e => console.log('Autoplay check:', e));
+    }
+
+    function stopAllAudio() {
+      for (let i = 1; i <= 3; i++) {
+        const a = document.getElementById('audio-' + i);
+        if (a) {
+          a.pause();
+          a.currentTime = 0;
+        }
+      }
+    }
+
+    async function runSimulation() {
+      const btn = document.getElementById('btnSimulate');
+      const stageImg = document.getElementById('stageImg');
+      const status = document.getElementById('stageStatus');
+      const marker = document.querySelector('.sparkle-target-marker');
+
+      btn.disabled = true;
+      marker.style.display = 'none';
+      stopAllAudio();
+
+      const frames = [
+        'assets/images/opening/S01.jpg',
+        'assets/images/opening/S02.jpg',
+        'assets/images/opening/S03.jpg',
+        'assets/images/opening/S04.jpg',
+        'assets/images/opening/S05.jpg',
+        'assets/images/opening/S06.jpg'
+      ];
+
+      // Play through frames
+      for (let i = 0; i < frames.length; i++) {
+        stageImg.src = frames[i];
+        status.innerHTML = `Frame: <strong>S0${i + 1}.jpg</strong> | Animating Title Reveal...`;
+
+        // At Frame S06 (sparkle appearance on T), play selected sparkle sound!
+        if (i === 5) {
+          marker.style.display = 'block';
+          const audio = document.getElementById('audio-' + activeOption);
+          audio.currentTime = 0;
+          audio.play().catch(e => console.log(e));
+          status.innerHTML = `Frame: <strong>S06.jpg</strong> | ✨ Sparkle Sound Playing (${optionNames[activeOption]})`;
+        }
+
+        // Delay between title frames (similar to Director score timing)
+        await new Promise(r => setTimeout(r, i === 5 ? 2000 : 350));
+      }
+
+      status.innerHTML = `Simulation Complete | Frame: <strong>S06.jpg</strong> | Selected: <strong>${optionNames[activeOption]}</strong>`;
+      btn.disabled = false;
+    }
+  </script>
+</body>
+</html>
