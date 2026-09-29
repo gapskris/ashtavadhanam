@@ -483,7 +483,7 @@ class AshtavadhanamApp {
       if (this.mosaicVideoWindow) this.mosaicVideoWindow.classList.remove('visible');
 
       if (this.statusTitle) this.statusTitle.textContent = "Authentic 1997 Cultural Mosaic";
-      if (this.statusDesc) this.statusDesc.textContent = "Phase 2: Cultural Heritage Mosaic (03.bmp)";
+      if (this.statusDesc) this.statusDesc.textContent = "Phase 2: Cultural Heritage Mosaic";
       if (this.progressFill) this.progressFill.style.width = "35%";
 
       // Step 2B: Crossfade to 02.bmp (Sepia Transition Mosaic) at 1.2s
@@ -491,7 +491,7 @@ class AshtavadhanamApp {
         if (this.mosaicFrame02) this.mosaicFrame02.classList.add('active');
         if (this.mosaicFrame03) this.mosaicFrame03.classList.remove('active');
         if (this.mosaicFrame01) this.mosaicFrame01.classList.remove('active');
-        if (this.statusDesc) this.statusDesc.textContent = "Phase 2: Transition Mosaic (02.bmp)";
+        if (this.statusDesc) this.statusDesc.textContent = "Phase 2: Transition Mosaic";
         if (this.progressFill) this.progressFill.style.width = "40%";
       }, 1200);
       this.openingSequenceTimers.push(timer02);
@@ -504,7 +504,7 @@ class AshtavadhanamApp {
         if (this.mosaicVideoWindow) this.mosaicVideoWindow.classList.add('visible');
 
         if (this.statusTitle) this.statusTitle.textContent = "Authentic 1997 Archival Montage";
-        if (this.statusDesc) this.statusDesc.textContent = "Phase 2: Archival Montage Video & Sanskrit Invocations (media/opening/montage.avi)";
+        if (this.statusDesc) this.statusDesc.textContent = "Phase 2: Archival Montage Video & Sanskrit Invocations";
         if (this.progressFill) this.progressFill.style.width = "45%";
 
         // Start video playback unmuted inside the 01.bmp cutout
@@ -541,18 +541,18 @@ class AshtavadhanamApp {
         this.openingMontageVideo.onended = () => {
           if (this.mosaicVideoWindow) this.mosaicVideoWindow.classList.remove('visible');
           if (this.statusTitle) this.statusTitle.textContent = "Authentic 1997 Archival Outro";
-          if (this.statusDesc) this.statusDesc.textContent = "Phase 2 Outro: Concluding Archival Invocations (01.bmp)...";
+          if (this.statusDesc) this.statusDesc.textContent = "Phase 2 Outro: Concluding Archival Invocations...";
           if (this.mosaicFrame01) this.mosaicFrame01.classList.add('active');
           if (this.mosaicFrame02) this.mosaicFrame02.classList.remove('active');
           if (this.mosaicFrame03) this.mosaicFrame03.classList.remove('active');
 
           const tOut1 = setTimeout(() => {
-            if (this.statusDesc) this.statusDesc.textContent = "Phase 2 Outro: Transition Mosaic (02.bmp)...";
+            if (this.statusDesc) this.statusDesc.textContent = "Phase 2 Outro: Transition Mosaic...";
             if (this.mosaicFrame02) this.mosaicFrame02.classList.add('active');
             if (this.mosaicFrame01) this.mosaicFrame01.classList.remove('active');
 
             const tOut2 = setTimeout(() => {
-              if (this.statusDesc) this.statusDesc.textContent = "Phase 2 Outro: Cultural Heritage Mosaic (03.bmp)...";
+              if (this.statusDesc) this.statusDesc.textContent = "Phase 2 Outro: Cultural Heritage Mosaic...";
               if (this.mosaicFrame03) this.mosaicFrame03.classList.add('active');
               if (this.mosaicFrame02) this.mosaicFrame02.classList.remove('active');
 
@@ -585,7 +585,7 @@ class AshtavadhanamApp {
       }
 
       if (this.statusTitle) this.statusTitle.textContent = "Ashtavadhanam — The Wonder that is Sanskrit";
-      if (this.statusDesc) this.statusDesc.textContent = "Phase 1: Illuminated Title Calligraphy (S01 to S06)";
+      if (this.statusDesc) this.statusDesc.textContent = "Phase 1: Illuminated Title Calligraphy";
       if (this.progressFill) this.progressFill.style.width = "5%";
 
       // Play authentic Sanskrit title theme music (from ashmain.dxr)
