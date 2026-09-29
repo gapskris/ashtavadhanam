@@ -105,11 +105,17 @@ class TestSanskritOrthography(unittest.TestCase):
         self.assertIn("अरविन्दमहाशयानां स्तुतिः", r21_dev)
         self.assertIn("कुशलताब्रह्म", r21_dev)
 
-        # Round 25 Concluding Song
+        # Round 24 Avadhani Concluding Address & Stanzas 1 & 2
+        r24_dev = self.pages[23]["sanskritDevanagari"]
+        self.assertIn("परिसमापनसमये", r24_dev)
+        self.assertIn("वयं संस्कृतस्य कृते किमपि किं न करवाम", r24_dev)
+        self.assertIn("स्वयं सङ्घटितशक्त्या सिद्धिमत्र रचयाम", r24_dev)
+
+        # Round 25 Concluding Song Stanzas 3-5 & Chorus
         r25_dev = self.pages[24]["sanskritDevanagari"]
-        self.assertIn("वयम् संस्कृतस्य कृते किमपि किं न करवाम", r25_dev)
-        self.assertIn("स्वयं सङ्घटितशक्त्या सिद्धिमत्र रचयाम", r25_dev)
+        self.assertIn("श्रवणं सम्भाषणं संस्कृते निरन्तरम्", r25_dev)
         self.assertIn("संस्कृत इति निःश्रेणीं समारुह्य विलसाम", r25_dev)
+        self.assertIn("वयं संस्कृतस्य कृते किमपि किमपि करवाम", r25_dev)
 
 if __name__ == "__main__":
     unittest.main()
